@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { Container } from "@mui/material";
 import { NextPage } from "next";
 import LayoutWrapper from "../components/Reusable/Layout/LayoutWrapper";
+import PageHeader from "../components/Reusable/PageHeader";
 // import ContactBox from "../components/Reusable/ContactBox/ContactBox";
 // import LayoutWrapper from "../components/Reusable/Layout/LayoutWrapper";
 // import PageHeader from "../components/Reusable/PageHeader";
@@ -14,6 +15,10 @@ const getServiciiData = async () => {
         serviciiPage {
           data {
             attributes {
+              pageHeader {
+                title
+                description
+              }
               seo {
                 metaTitle
                 metaDescription
@@ -44,9 +49,13 @@ const Servicii: NextPage<ServiciiProps> = ({ main, services }) => {
   const { seo, pageHeader, headerImage } = main;
   return (
     <LayoutWrapper seo={seo}>
+      <Container>
+        <PageHeader {...pageHeader} />
+        Servicii Inner
+      </Container>
+
       {/* // <PageHeader {...pageHeader} backgroundImage={headerImage} />
     // <ContactBox section /> */}
-      Servicii Inner
     </LayoutWrapper>
   );
 };

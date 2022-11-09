@@ -20,9 +20,9 @@ const EtajParser: React.FC<IEtajParser> = ({ etaj, sx }) => {
       <Box
         sx={{
           ...(centerFlex as CSSProperties),
-          ...sx,
+          ...(sx as CSSProperties),
+          ...(propertyFont as CSSProperties),
           display: "inline-flex",
-          ...propertyFont,
         }}
       >
         <StairsOutlined

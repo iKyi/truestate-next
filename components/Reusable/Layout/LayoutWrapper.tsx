@@ -6,13 +6,14 @@ import Header from "./Header";
 export type LayoutWrapperPropsType = {
   children?: any;
   seo: Record<any, any>;
+  noSpacing?: boolean;
 };
 
 const LayoutWrapper: React.VFC<LayoutWrapperPropsType> = ({
   children,
   seo,
+  noSpacing,
 }) => {
-  const Mobile = useIsMobile();
   // *************** RENDER *************** //
   return (
     <Box
@@ -20,6 +21,7 @@ const LayoutWrapper: React.VFC<LayoutWrapperPropsType> = ({
         minHeight: "100%",
         display: "flex",
         flexDirection: "column",
+        paddingTop: !noSpacing ? "100px" : undefined,
       }}
     >
       <Header seo={seo} />

@@ -18,9 +18,9 @@ const Suprafata: React.FC<ISuprafata> = ({ sx, suprafata }) => {
       <Box
         sx={{
           ...(centerFlex as CSSProperties),
-          ...sx,
+          ...(sx as CSSProperties),
           display: "inline-flex",
-          ...propertyFont,
+          ...(propertyFont as CSSProperties),
         }}
       >
         <AspectRatioOutlined

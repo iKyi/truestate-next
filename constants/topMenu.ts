@@ -14,9 +14,13 @@ const topMenu: IPageLink[] = [
     url: "/despre-noi",
   },
   {
+    name: "Proprietati",
+    url: "/proprietati",
+  },
+  {
     name: "Servicii",
     url: "/servicii",
-    servicesList: true,
+    servicesList: false,
   },
 ];
 

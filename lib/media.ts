@@ -5,6 +5,8 @@ export function getStrapiMedia(media: any) {
   if (media && media.data && media.data.attributes) {
     if (media?.data?.attributes?.url?.startsWith("/")) {
       imageUrl = getStrapiURL(media.data.attributes.url).replace("/api/", "/");
+    } else if (media?.data?.attributes?.url) {
+      imageUrl = media?.data?.attributes?.url;
     } else {
       imageUrl = media.url;
     }

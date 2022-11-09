@@ -1,4 +1,4 @@
-import { ArrowDropDownTwoTone } from "@mui/icons-material";
+import { ArrowDropDownTwoTone, Router } from "@mui/icons-material";
 import {
   Box,
   useMediaQuery,
@@ -48,15 +48,14 @@ const HeaderServicesMenu = React.forwardRef((props: any, ref) => {
     setAnchorEl(null);
     router.push(url);
   };
-
   return (
     <>
       <Button
         onClick={handleClick}
         size="small"
         sx={{
-          bgcolor: active ? "primary.main" : "transparent",
-          color: active ? "white" : "inherit",
+          bgcolor: (theme) => (active ? "primary.main" : "transparent"),
+          color: active ? "secondary.light" : "inherit",
           flex: 1,
         }}
         endIcon={<ArrowDropDownTwoTone />}
@@ -119,14 +118,15 @@ export type HeaderPropsType = {
   children?: any;
   seo: Record<any, any>;
 };
-const Header: React.VFC<HeaderPropsType> = ({ children, seo }) => {
+const Header: React.FC<HeaderPropsType> = ({ children, seo }) => {
   // const { toggleLang, langValue } = useContext(LanguageContext);
+  const { pathname } = useRouter();
 
   const scrollPos = useScrollPosition();
 
   const Mobile = useIsMobile();
   const global = useContext(GlobalContext);
-  const { logo, services = [] } = global;
+  const { logoWhite, services = [] } = global;
 
   const servicesMenu = useMemo(() => {
     return services?.map((item: any) => {
@@ -148,11 +148,13 @@ const Header: React.VFC<HeaderPropsType> = ({ children, seo }) => {
         left: 0,
         width: "100%",
         padding: !Mobile ? 1.5 : 1,
+        color: "#fff",
         backdropFilter: !isSticky
           ? "none"
           : "blur(3px) grayscale(80%) contrast(5%)",
-        backgroundColor: isSticky ? "rgba(0,0,0,0.55)" : "transparent",
-        transition: "all .3s",
+        backgroundColor: (theme) =>
+          isSticky ? "rgba(0,0,0,0.55)" : theme.palette.primary.main,
+        transition: "all .2s",
         boxShadow: !isSticky ? "none" : "0px 6px 6px rgba(0,0,0,0.25)",
       }}
     >
@@ -168,10 +170,10 @@ const Header: React.VFC<HeaderPropsType> = ({ children, seo }) => {
           href="/"
           sx={{
             background:
-              logo && logo.data
-                ? `url('${getStrapiMedia(logo)}')`
+              logoWhite && logoWhite.data
+                ? `url('${getStrapiMedia(logoWhite)}')`
                 : "transparent",
-            backgroundSize: "cover",
+            backgroundSize: "auto 100%",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             width: Mobile || isSticky ? 180 : 240,
@@ -182,6 +184,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children, seo }) => {
 
         <Stack spacing={2} direction="row" sx={{ marginLeft: "auto" }}>
           {topMenu.map((item: any) => {
+            const currentActive = pathname === item.url;
             if (item.servicesList) {
               return (
                 <HeaderServicesMenu
@@ -199,7 +202,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children, seo }) => {
                 href={item.url}
                 key={item.url}
                 sx={{
-                  color: "white",
+                  color: currentActive ? "secondary.light" : "white",
                 }}
               >
                 {item.name}

@@ -62,7 +62,13 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
         }}
       >
         <Stack spacing={[0.7, 0.7, 1]}>
-          <MUILink component={Link} href={url}>
+          <MUILink
+            component={Link}
+            href={url}
+            sx={{
+              fontWeight: 700,
+            }}
+          >
             {titlu}
           </MUILink>
           {descriere && <MarkdownParser>{descriere}</MarkdownParser>}

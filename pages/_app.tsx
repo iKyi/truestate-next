@@ -16,9 +16,49 @@ const getGlobalData = async () => {
     const response = await client.query({
       query: gql`
         query getGlobal {
+          tips {
+            data {
+              attributes {
+                name
+                slug
+              }
+            }
+          }
+          categories {
+            data {
+              attributes {
+                name
+                slug
+              }
+            }
+          }
+          deOptions: des {
+            data {
+              attributes {
+                name
+                slug
+              }
+            }
+          }
+
           global {
             data {
               attributes {
+                logoWhite {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                logo {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                footerDisclamer
                 siteName
                 logo {
                   data {
@@ -49,7 +89,7 @@ const getGlobalData = async () => {
         }
       `,
     });
-    return response.data?.global?.data?.attributes;
+    return response.data;
   } catch (err) {
     console.log(err);
   }
@@ -106,7 +146,7 @@ const MyApp = (props: ExtendedAppProps) => {
       >
         <CacheProvider value={emotionCache}>
           <Head>
-            {/* <link rel="shortcut icon" href={getStrapiMedia(global?.favicon)} /> */}
+            <link rel="shortcut icon" href={getStrapiMedia(global?.favicon)} />
             <meta
               name="viewport"
               content="initial-scale=1, width=device-width"
@@ -122,21 +162,21 @@ const MyApp = (props: ExtendedAppProps) => {
 };
 
 MyApp.getInitialProps = async (ctx: any) => {
-  const [appProps, global] = await Promise.all([
+  const [appProps, response] = await Promise.all([
     App.getInitialProps(ctx),
     getGlobalData(),
-    // await fetchAPI("/global?populate=*"),
-    // await fetchAPI("/services"),
-    // await fetchAPI("/articles?populate=*&sort[0]=updatedAt"),
   ]);
-  // const lastThreeArticles =
-  //   articles.length > 3
-  //     ? articles.slice(Math.max(articles.length - 3, 1))
-  //     : articles;
+
+  const globalData = {
+    ...response.global?.data?.attributes,
+    deOptions: response?.deOptions?.data?.map((item: any) => item.attributes),
+    categories: response.categories?.data?.map((item: any) => item.attributes),
+    tipuri: response.tips.data?.map((item: any) => item.attributes),
+  };
   return {
     ...appProps,
     pageProps: {
-      global,
+      global: globalData,
       // global, services, lastThreeArticles
     },
   };

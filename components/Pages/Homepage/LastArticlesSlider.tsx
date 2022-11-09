@@ -7,6 +7,7 @@ SwiperCore.use([Navigation, Virtual]);
 
 // Import Swiper styles
 import "swiper/swiper-bundle.css";
+import HomeSection from "../../Reusable/HomeSection";
 
 interface ILastArticlesSlider {
   latestItems: any[];
@@ -16,7 +17,7 @@ const LastArticlesSlider: React.FC<ILastArticlesSlider> = ({ latestItems }) => {
   const isNavigationStyles = useMediaQuery(theme.breakpoints.up(1280));
 
   return (
-    <Box sx={{}}>
+    <HomeSection title="Cele mai noi proprietati">
       <Swiper
         virtual
         breakpoints={{
@@ -26,12 +27,12 @@ const LastArticlesSlider: React.FC<ILastArticlesSlider> = ({ latestItems }) => {
             navigation: false,
           },
           640: {
-            slidesPerView: 4,
+            slidesPerView: 2,
             spaceBetween: 10,
             navigation: false,
           },
           1280: {
-            slidesPerView: 6,
+            slidesPerView: 4,
             spaceBetween: 25,
             navigation: true,
           },
@@ -53,7 +54,7 @@ const LastArticlesSlider: React.FC<ILastArticlesSlider> = ({ latestItems }) => {
           );
         })}
       </Swiper>
-    </Box>
+    </HomeSection>
   );
 };
 

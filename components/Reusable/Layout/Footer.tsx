@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { DateTime } from "luxon";
 import Image from "next/image";
+import Link from "next/link";
 import { useContext } from "react";
 import useIsMobile from "../../../hooks/useIsMobile";
 import { getStrapiMedia } from "../../../lib/media";
@@ -23,7 +24,7 @@ export type AppFooterPropsType = {
   children?: any;
 };
 const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
-  const { socialLinks } = useContext(GlobalContext);
+  const { socialLinks, logoWhite, footerDisclamer } = useContext(GlobalContext);
   const Mobile = useIsMobile();
   // *************** RENDER *************** //
   return (
@@ -33,11 +34,7 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
         marginTop: "auto",
         paddingTop: 5,
         textAlign: "center",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "secondary.main",
-        backgroundBlendMode: "multiply",
+        background: `linear-gradient(336deg, rgba(3,3,5,1) 0%, rgba(28,48,33,1) 100%)`,
       }}
     >
       <Container>
@@ -47,29 +44,7 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
           }}
         >
           <Grid container columnSpacing={Mobile ? 0 : 4.5}>
-            <Grid item xs={12}>
-              {/* {logo && logo.data && (
-                <Box
-                  component={Link}
-                  href="/"
-                  sx={{
-                    display: "block",
-                    mb: 3,
-                    width: "200px",
-                    maxWidth: "100%",
-                  }}
-                >
-                  <Image
-                    src={getStrapiMedia(logo)}
-                    height={logo.data.attributes.height}
-                    width={logo.data.attributes.width}
-                    layout="responsive"
-                    alt="Sekko Logo"
-                  />
-                </Box>
-              )} */}
-            </Grid>
-            {/* {footerDescription && (
+            {footerDisclamer && (
               <Grid
                 item
                 xs={12}
@@ -78,9 +53,33 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                   textAlign: "left",
                 }}
               >
-                <Typography>{footerDescription}</Typography>
+                {logoWhite && logoWhite.data && (
+                  <Box
+                    component={Link}
+                    href="/"
+                    sx={{
+                      display: "block",
+                      mb: 3,
+                      width: "200px",
+                      height: "150px",
+                      maxWidth: "100%",
+                      position: "relative",
+                      background: `url('${getStrapiMedia(logoWhite)}')`,
+                      backgroundSize: "100% auto",
+                      backgroundPosition: "center center",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  ></Box>
+                )}
+                <Typography
+                  sx={{
+                    color: "#fff",
+                  }}
+                >
+                  {footerDisclamer}
+                </Typography>
               </Grid>
-            )} */}
+            )}
 
             <Grid
               item

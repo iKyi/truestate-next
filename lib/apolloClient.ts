@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { getStrapiURL } from "./api";
 
 const client = new ApolloClient({
-  uri: "http://localhost:1337/graphql/",
+  uri: `${getStrapiURL()}/graphql/`,
   cache: new InMemoryCache({
     addTypename: false,
   }),
