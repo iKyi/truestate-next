@@ -14,10 +14,15 @@ interface Iproprietati {
 const proprietati: NextPage<Iproprietati> = ({ pageData, proprietati }) => {
   const { seo, pageHeader } = pageData ?? {};
   return (
-    <LayoutWrapper seo={seo}>
+    <LayoutWrapper
+      seo={seo}
+      sx={{
+        pb: 2,
+      }}
+    >
       <Container>
         <PageHeader {...pageHeader} />
-        <Grid container spacing={[2, 2, 4]}>
+        <Grid container spacing={[2, 2, 4]} justifyContent="center">
           {proprietati.map((item) => {
             const { slug } = item?.attributes ?? {};
             return (
@@ -87,6 +92,7 @@ export async function getStaticProps() {
                     attributes {
                       name
                       slug
+                      color
                     }
                   }
                 }

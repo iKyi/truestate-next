@@ -1,18 +1,12 @@
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useContext } from "react";
 import { GlobalContext } from "../../../pages/_app";
 import HomeSection from "../../Reusable/HomeSection";
 
 interface ICategoriiBox {}
 const CategoriiBox: React.FC<ICategoriiBox> = () => {
-  const { push } = useRouter();
   const { categories } = useContext(GlobalContext);
-
-  const handleChipClick = (slug: string) => {
-    push(`/categorii/${slug}`);
-  };
 
   if (!categories) return null;
   return (
@@ -25,9 +19,21 @@ const CategoriiBox: React.FC<ICategoriiBox> = () => {
         }}
       >
         {categories.map((item: Record<any, any>) => {
-          const { name, slug } = item;
+          const { name, slug, color } = item;
           return (
-            <Button key={name} component={Link} href={`categorie/${slug}`}>
+            <Button
+              key={name}
+              component={Link}
+              href={`categorie/${slug}`}
+              sx={{
+                backgroundColor: color,
+                color: "#fff",
+                "&:hover": {
+                  color: "primary.dark",
+                  borderColor: "primary.dark",
+                },
+              }}
+            >
               {name}
             </Button>
           );

@@ -1,8 +1,10 @@
 import { gql } from "@apollo/client";
 import { Box, Grid } from "@mui/material";
+import { Container } from "@mui/system";
 import { NextPage } from "next";
 import LayoutWrapper from "../../components/Reusable/Layout/LayoutWrapper";
 import NuExistaRezultate from "../../components/Reusable/NuExistaRezultate";
+import PageHeader from "../../components/Reusable/PageHeader";
 import PropertyCard from "../../components/Reusable/PropertyComponents/PropertyCard";
 import client from "../../lib/apolloClient";
 
@@ -45,6 +47,7 @@ const getItemData = async (slug: string) => {
                   attributes {
                     name
                     slug
+                    color
                   }
                 }
               }
@@ -89,22 +92,26 @@ const Categorie: NextPage<CategorieProps> = ({ proprietati, categoryName }) => {
       seo={{
         metaTitle: categoryName,
       }}
+      sx={{
+        pb: 2,
+      }}
     >
-      {proprietati.length === 0 ? <NuExistaRezultate /> : null}
+      <Container>
+        <PageHeader title={categoryName} />
+        {proprietati.length === 0 ? <NuExistaRezultate /> : null}
 
-      {proprietati.length && (
-        <Box
-          sx={{
-            mt: 20,
-          }}
-        >
+        {proprietati.length && (
           <Grid container>
             {proprietati.map((item) => {
-              return <PropertyCard data={item} key={item.attributes.name} />;
+              return (
+                <Grid item key={item.attributes.slug} xs={6} md={4} lg={3}>
+                  <PropertyCard data={item} key={item.attributes.name} />
+                </Grid>
+              );
             })}
           </Grid>
-        </Box>
-      )}
+        )}
+      </Container>
     </LayoutWrapper>
   );
 };
@@ -118,7 +125,6 @@ export async function getStaticPaths() {
         categories {
           data {
             attributes {
-              name
               slug
             }
           }

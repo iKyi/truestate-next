@@ -7,9 +7,7 @@ interface IHeroBox {
   heroImage: any;
 }
 const HeroBox: React.FC<IHeroBox> = ({ heroImage }) => {
-  const context = useContext(GlobalContext);
-
-  console.log(context);
+  // const context = useContext(GlobalContext);
 
   const imageUrl = getStrapiMedia(heroImage);
 

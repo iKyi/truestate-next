@@ -4,7 +4,7 @@ import MarkdownParser from "./MarkdownParser";
 
 interface IPageHeader {
   title: string;
-  description: string;
+  description?: string;
 }
 const PageHeader: React.FC<IPageHeader> = ({ title, description }) => {
   return (

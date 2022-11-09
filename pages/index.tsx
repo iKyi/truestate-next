@@ -68,6 +68,7 @@ const getHomepageData = async () => {
                     attributes {
                       name
                       slug
+                      color
                     }
                   }
                 }

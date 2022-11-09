@@ -32,7 +32,7 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
       component="footer"
       sx={{
         marginTop: "auto",
-        paddingTop: 5,
+        paddingTop: 2,
         textAlign: "center",
         background: `linear-gradient(336deg, rgba(3,3,5,1) 0%, rgba(28,48,33,1) 100%)`,
       }}
@@ -47,8 +47,8 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
             {footerDisclamer && (
               <Grid
                 item
-                xs={12}
-                md={4}
+                xs={6}
+                md={6}
                 sx={{
                   textAlign: "left",
                 }}
@@ -59,7 +59,7 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                     href="/"
                     sx={{
                       display: "block",
-                      mb: 3,
+                      mb: 1,
                       width: "200px",
                       height: "150px",
                       maxWidth: "100%",
@@ -83,21 +83,12 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
 
             <Grid
               item
-              xs={12}
-              md={4}
-              sx={{
-                pt: Mobile ? 2 : 0,
-                textAlign: "left",
-              }}
-            ></Grid>
-            <Grid
-              item
-              xs={12}
-              md={4}
+              xs={6}
+              md={6}
               sx={{
                 display: "flex",
-                justifyContent: Mobile ? "center" : "flex-end",
-                pt: Mobile ? 2 : 0,
+                justifyContent: "flex-end",
+                alignItems: "center",
               }}
             >
               <Stack spacing={2} direction={Mobile ? "row" : "column"}>
@@ -119,8 +110,8 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                           borderColor: "#fff",
                           color: "#fff",
                           "&:hover": {
-                            borderColor: "primary.main",
-                            color: "primary.main",
+                            borderColor: "secondary.light",
+                            color: "secondary.light",
                           },
                         }}
                       >
@@ -130,8 +121,6 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                   })}
               </Stack>
             </Grid>
-
-            <Grid item xs={12} sx={{ textAlign: "center", py: 3 }}></Grid>
           </Grid>
         </Box>
       </Container>

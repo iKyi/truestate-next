@@ -29,6 +29,7 @@ const getGlobalData = async () => {
               attributes {
                 name
                 slug
+                color
               }
             }
           }
