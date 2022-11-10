@@ -1,6 +1,10 @@
 import { getStrapiURL } from "./api";
 
 export function getStrapiMedia(media: any) {
+  if (typeof media === "string") {
+    return media;
+  }
+
   let imageUrl = null;
   if (media && media.data && media.data.attributes) {
     if (media?.data?.attributes?.url?.startsWith("/")) {

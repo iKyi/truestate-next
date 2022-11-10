@@ -15,6 +15,7 @@ const CategoriiBox: React.FC<ICategoriiBox> = () => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
+          justifyContent: "center",
           gap: "10px",
         }}
       >

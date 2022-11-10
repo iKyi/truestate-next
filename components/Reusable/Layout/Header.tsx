@@ -1,12 +1,5 @@
-import { ArrowDropDownTwoTone, Router } from "@mui/icons-material";
-import {
-  Box,
-  useMediaQuery,
-  Button,
-  Stack,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { ArrowDropDownTwoTone, MenuOpenOutlined } from "@mui/icons-material";
+import { Box, Button, Stack, Menu, MenuItem, IconButton } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useMemo, useState } from "react";
@@ -15,6 +8,7 @@ import useIsMobile from "../../../hooks/useIsMobile";
 import useScrollPosition from "../../../hooks/useScrollPosition";
 import { getStrapiMedia } from "../../../lib/media";
 import { GlobalContext } from "../../../pages/_app";
+import MobileMenu from "./MobileMenu";
 import SeoComp from "./Seo";
 
 const HeaderServicesMenu = React.forwardRef((props: any, ref) => {
@@ -120,6 +114,7 @@ export type HeaderPropsType = {
 };
 const Header: React.FC<HeaderPropsType> = ({ children, seo }) => {
   // const { toggleLang, langValue } = useContext(LanguageContext);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { pathname } = useRouter();
 
   const scrollPos = useScrollPosition();
@@ -137,82 +132,108 @@ const Header: React.FC<HeaderPropsType> = ({ children, seo }) => {
   const isSticky = useMemo(() => {
     return scrollPos > 60 ? true : false;
   }, [scrollPos]);
+
+  const openMobileMenu = () => {
+    setMobileOpen(true);
+  };
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+  };
   // *************** RENDER *************** //
   return (
-    <Box
-      component="header"
-      sx={{
-        zIndex: "100",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        padding: !Mobile ? 1.5 : 1,
-        color: "#fff",
-        backdropFilter: !isSticky
-          ? "none"
-          : "blur(3px) grayscale(80%) contrast(5%)",
-        backgroundColor: (theme) =>
-          isSticky ? "rgba(0,0,0,0.55)" : theme.palette.primary.main,
-        transition: "all .2s",
-        boxShadow: !isSticky ? "none" : "0px 6px 6px rgba(0,0,0,0.25)",
-      }}
-    >
-      <SeoComp seo={seo} />
+    <>
       <Box
+        component="header"
         sx={{
-          display: "flex",
-          alignItems: "center",
+          zIndex: "100",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          padding: !Mobile ? 1.5 : 1,
+          color: "#fff",
+          backdropFilter: !isSticky
+            ? "none"
+            : "blur(3px) grayscale(80%) contrast(5%)",
+          backgroundColor: (theme) =>
+            isSticky ? "rgba(0,0,0,0.55)" : theme.palette.primary.main,
+          transition: "all .2s",
+          boxShadow: !isSticky ? "none" : "0px 6px 6px rgba(0,0,0,0.25)",
         }}
       >
+        <SeoComp seo={seo} />
         <Box
-          component={Link}
-          href="/"
           sx={{
-            background:
-              logoWhite && logoWhite.data
-                ? `url('${getStrapiMedia(logoWhite)}')`
-                : "transparent",
-            backgroundSize: "auto 100%",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-            width: Mobile || isSticky ? 180 : 240,
-            height: Mobile || isSticky ? 50 : 60,
-            transition: "all .3s",
+            display: "flex",
+            alignItems: "center",
           }}
-          aria-label="Link catre Acasa"
-        />
+        >
+          <Box
+            component={Link}
+            href="/"
+            sx={{
+              background:
+                logoWhite && logoWhite.data
+                  ? `url('${getStrapiMedia(logoWhite)}')`
+                  : "transparent",
+              backgroundSize: "auto 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              width: Mobile || isSticky ? 100 : 240,
+              height: Mobile || isSticky ? 50 : 60,
+              transition: "all .3s",
+            }}
+            aria-label="Link catre Acasa"
+          />
 
-        <Stack spacing={2} direction="row" sx={{ marginLeft: "auto" }}>
-          {topMenu.map((item: any) => {
-            const currentActive = pathname === item.url;
-            if (item.servicesList) {
+          <Stack
+            spacing={2}
+            direction="row"
+            sx={{ marginLeft: "auto", display: ["none", "none", "flex"] }}
+          >
+            {topMenu.map((item: any) => {
+              const currentActive = pathname === item.url;
+              if (item.servicesList) {
+                return (
+                  <HeaderServicesMenu
+                    key={item.url}
+                    data={item}
+                    subItems={servicesMenu}
+                  />
+                );
+              }
               return (
-                <HeaderServicesMenu
+                <Button
+                  color="primary"
+                  size="small"
+                  component={Link}
+                  href={item.url}
                   key={item.url}
-                  data={item}
-                  subItems={servicesMenu}
-                />
+                  sx={{
+                    color: currentActive ? "secondary.light" : "white",
+                  }}
+                >
+                  {item.name}
+                </Button>
               );
-            }
-            return (
-              <Button
-                color="primary"
-                size="small"
-                component={Link}
-                href={item.url}
-                key={item.url}
-                sx={{
-                  color: currentActive ? "secondary.light" : "white",
-                }}
-              >
-                {item.name}
-              </Button>
-            );
-          })}
-        </Stack>
+            })}
+          </Stack>
+          <IconButton
+            sx={{
+              borderRadius: 0,
+              display: ["inline-flex", "inline-flex", "none"],
+              color: "#fff",
+              ml: "auto",
+            }}
+            onClick={openMobileMenu}
+            aria-label={`open mobile menu`}
+          >
+            <MenuOpenOutlined />
+          </IconButton>
+        </Box>
       </Box>
-    </Box>
+      <MobileMenu open={mobileOpen} closeMobileMenu={closeMobileMenu} />
+    </>
   );
 };
 

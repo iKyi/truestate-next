@@ -1,13 +1,14 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import PropertyCard from "../../Reusable/PropertyComponents/PropertyCard";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Virtual } from "swiper";
+import SwiperCore, { Navigation, Virtual, Scrollbar } from "swiper";
+import HomeSection from "../../Reusable/HomeSection";
 
-SwiperCore.use([Navigation, Virtual]);
+SwiperCore.use([Navigation, Virtual, Scrollbar]);
 
 // Import Swiper styles
 import "swiper/swiper-bundle.css";
-import HomeSection from "../../Reusable/HomeSection";
+import "swiper/css/scrollbar";
 
 interface ILastArticlesSlider {
   latestItems: any[];
@@ -19,13 +20,8 @@ const LastArticlesSlider: React.FC<ILastArticlesSlider> = ({ latestItems }) => {
   return (
     <HomeSection title="Cele mai noi proprietati">
       <Swiper
-        virtual
+        scrollbar
         breakpoints={{
-          0: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-            navigation: false,
-          },
           640: {
             slidesPerView: 2,
             spaceBetween: 10,
