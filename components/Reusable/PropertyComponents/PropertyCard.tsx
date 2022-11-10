@@ -73,6 +73,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
           height: 180,
           position: "relative",
         }}
+        aria-label={`${titlu} image url`}
       ></CardActionArea>
       <Box
         sx={{
