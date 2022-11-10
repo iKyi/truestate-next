@@ -23,6 +23,7 @@ const CategorieBox: React.FC<ICategorieBox> = ({ data }) => {
         display: "block",
         color: "#fff",
         bgcolor: color,
+        py: "3px",
       }}
     >
       {name}

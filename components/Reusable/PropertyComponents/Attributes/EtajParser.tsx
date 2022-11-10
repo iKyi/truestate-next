@@ -23,12 +23,14 @@ const EtajParser: React.FC<IEtajParser> = ({ etaj, sx }) => {
           ...(sx as CSSProperties),
           ...(propertyFont as CSSProperties),
           display: "inline-flex",
+          fontSize: "inherit",
         }}
       >
         <StairsOutlined
           sx={{
             ...propertyMargin,
           }}
+          fontSize="inherit"
         />
         {etaj}
       </Box>

@@ -45,6 +45,13 @@ const getGlobalData = async () => {
           global {
             data {
               attributes {
+                footerContactTitle
+                contactEntries {
+                  nume
+                  titlu
+                  telefon
+                  email
+                }
                 logoWhite {
                   data {
                     attributes {

@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
-  staticPageGenerationTimeout: 12000,
+  staticPageGenerationTimeout: 6000,
 };
 
 module.exports = nextConfig;

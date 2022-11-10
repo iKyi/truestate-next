@@ -46,20 +46,29 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
   return (
     <Box
       sx={{
-        border: "1px solid",
-        borderRadius: 1.5,
         borderColor: "primary.light",
         overflow: "hidden",
+        boxShadow: "0 0px 15px 0px rgba(0,0,0,0.15)",
+        ".imageBox": {
+          transition: "all 0.6s ease-in-out",
+          backgroundSize: "110% auto",
+          backgroundPosition: "50% 50%",
+        },
+        "&:hover": {
+          ".imageBox": {
+            backgroundSize: "130% auto",
+            backgroundPosition: "50% 100%",
+          },
+        },
       }}
     >
       <CardActionArea
         component={Link}
         href={url}
+        className="imageBox"
         sx={{
           backgroundColor: "#000",
           background: `url('${primaryImage}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           height: 180,
           position: "relative",
@@ -71,24 +80,38 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
         }}
       >
         <Stack spacing={[0.7, 0.7, 1]}>
-          <MUILink
-            component={Link}
-            href={url}
-            sx={{
-              fontWeight: 700,
-              fontSize: "1.15rem",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {titlu}
-          </MUILink>
-          {descriere && <MarkdownParser>{descriere}</MarkdownParser>}
+          <Box>
+            <MUILink
+              component={Link}
+              href={url}
+              sx={{
+                fontWeight: 700,
+                fontSize: "1.15rem",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                "&:hover": {
+                  color: "secondary.light",
+                },
+              }}
+            >
+              {titlu}
+            </MUILink>
+            {descriere && (
+              <Box
+                sx={{
+                  lineHeight: "1.1",
+                }}
+              >
+                <MarkdownParser>{descriere}</MarkdownParser>
+              </Box>
+            )}
+          </Box>
           <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
               gap: "10px",
+              fontSize: "0.9rem",
             }}
           >
             <AnConstructie an={anConstructie} />

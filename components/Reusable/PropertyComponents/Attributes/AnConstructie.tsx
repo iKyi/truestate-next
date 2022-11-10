@@ -17,6 +17,7 @@ const AnConstructie: React.FC<IAnConstructie> = ({ an, sx }) => {
     ...(sx as CSSProperties),
     ...(propertyFont as CSSProperties),
     display: "inline-flex",
+    fontSize: "inherit",
   };
 
   if (!an) {
@@ -29,6 +30,7 @@ const AnConstructie: React.FC<IAnConstructie> = ({ an, sx }) => {
           sx={{
             ...propertyMargin,
           }}
+          fontSize="inherit"
         />
         {an}
       </Box>

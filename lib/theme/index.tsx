@@ -71,6 +71,7 @@ const getOverRides = (theme: Theme) => {
           root: {
             fontFamily: "Quicksand",
             position: "relative",
+            borderRadius: 0,
           },
         },
       },

@@ -1,4 +1,10 @@
 import {
+  EmailOutlined,
+  Phone,
+  PhoneAndroidOutlined,
+  PhoneCallback,
+} from "@mui/icons-material";
+import {
   Box,
   CardActionArea,
   Chip,
@@ -18,14 +24,22 @@ import { useContext } from "react";
 import useIsMobile from "../../../hooks/useIsMobile";
 import { getStrapiMedia } from "../../../lib/media";
 import { GlobalContext } from "../../../pages/_app";
+import { centerFlex } from "../../../utils/sxUtils";
 import CommonIcon from "../Icons/CommonIcon";
 
 export type AppFooterPropsType = {
   children?: any;
 };
 const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
-  const { socialLinks, logoWhite, footerDisclamer } = useContext(GlobalContext);
+  const {
+    socialLinks,
+    logoWhite,
+    footerDisclamer,
+    footerContactTitle,
+    contactEntries,
+  } = useContext(GlobalContext);
   const Mobile = useIsMobile();
+
   // *************** RENDER *************** //
   return (
     <Box
@@ -47,10 +61,11 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
             {footerDisclamer && (
               <Grid
                 item
-                xs={6}
-                md={6}
+                xs={12}
+                sm={6}
+                md={4}
                 sx={{
-                  textAlign: "left",
+                  textAlign: Mobile ? "center" : "left",
                 }}
               >
                 {logoWhite && logoWhite.data && (
@@ -60,6 +75,7 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                     sx={{
                       display: "block",
                       mb: 1,
+                      mx: Mobile ? "auto" : undefined,
                       width: "200px",
                       height: "150px",
                       maxWidth: "100%",
@@ -81,17 +97,108 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
               </Grid>
             )}
 
+            {contactEntries.length > 0 && (
+              <Grid item xs={12} sm={6} md={4}>
+                <Box
+                  sx={{
+                    color: "#fff",
+                    pt: 3,
+                    textAlign: "center",
+                  }}
+                >
+                  {footerContactTitle && (
+                    <Typography
+                      component="div"
+                      sx={{
+                        fontSize: "1.35rem",
+                        mb: 2,
+                      }}
+                    >
+                      {footerContactTitle}
+                    </Typography>
+                  )}
+                  <Box
+                    sx={{
+                      ...centerFlex,
+                      gap: "10px",
+                    }}
+                  >
+                    {contactEntries.map((item: any) => {
+                      const { nume, email, telefon, titlu } = item ?? {};
+                      return (
+                        <Box key={nume}>
+                          <Typography component="div">{nume}</Typography>
+                          {titlu && (
+                            <Typography
+                              component="div"
+                              sx={{
+                                fontSize: "0.85rem",
+                              }}
+                            >
+                              {titlu}
+                            </Typography>
+                          )}
+                          <Box
+                            sx={{
+                              gap: "5px",
+                              ...centerFlex,
+                            }}
+                          >
+                            {telefon && (
+                              <IconButton
+                                LinkComponent={MuiLinkDefault}
+                                aria-label="phone link"
+                                href={`tel:+${telefon}`}
+                                sx={{
+                                  color: "#fff",
+                                  display: "block",
+                                  mb: 0.3,
+                                }}
+                              >
+                                <Phone />
+                              </IconButton>
+                            )}
+                            {email && (
+                              <IconButton
+                                LinkComponent={MuiLinkDefault}
+                                aria-label="phone link"
+                                href={`mailto:${email}`}
+                                sx={{
+                                  color: "#fff",
+                                  display: "block",
+                                  mb: 0.3,
+                                }}
+                              >
+                                <EmailOutlined />
+                              </IconButton>
+                            )}
+                          </Box>
+                        </Box>
+                      );
+                    })}
+                  </Box>
+                </Box>
+              </Grid>
+            )}
+
             <Grid
               item
-              xs={6}
-              md={6}
+              xs={12}
+              sm={6}
+              md={4}
               sx={{
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: Mobile ? "center" : "flex-end",
                 alignItems: "center",
               }}
             >
-              <Stack spacing={2} direction={Mobile ? "row" : "column"}>
+              <Stack
+                sx={{
+                  flexDirection: Mobile ? "row" : "column",
+                  gap: 2,
+                  alignItems: "center",
+                }}
+              >
                 {socialLinks &&
                   Object.keys(socialLinks).map((key: string) => {
                     const url = socialLinks[key];

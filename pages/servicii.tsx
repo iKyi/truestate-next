@@ -1,6 +1,9 @@
 import { gql } from "@apollo/client";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
+import { Box } from "@mui/system";
 import { NextPage } from "next";
+import ServiciuEntryList from "../components/Pages/Servicii/ServiciuEntryList";
+import ContactBox from "../components/Reusable/ContactBox";
 import LayoutWrapper from "../components/Reusable/Layout/LayoutWrapper";
 import PageHeader from "../components/Reusable/PageHeader";
 // import ContactBox from "../components/Reusable/ContactBox/ContactBox";
@@ -12,6 +15,15 @@ const getServiciiData = async () => {
   const reps = await client.query({
     query: gql`
       query GetServiciiPage {
+        serviciuEntries {
+          data {
+            attributes {
+              titlu
+              descriere
+              slug
+            }
+          }
+        }
         serviciiPage {
           data {
             attributes {
@@ -37,7 +49,7 @@ const getServiciiData = async () => {
     `,
   });
 
-  return reps.data?.serviciiPage?.data?.attributes ?? {};
+  return reps.data;
 };
 
 type ServiciiProps = {
@@ -47,11 +59,34 @@ type ServiciiProps = {
 
 const Servicii: NextPage<ServiciiProps> = ({ main, services }) => {
   const { seo, pageHeader, headerImage } = main;
+
   return (
     <LayoutWrapper seo={seo}>
       <Container>
         <PageHeader {...pageHeader} />
-        Servicii Inner
+        <Grid
+          container
+          spacing={[2, 2, 4]}
+          sx={{
+            mb: 4,
+          }}
+        >
+          {services.map((item) => {
+            return (
+              <Grid item xs={12} sm={6} xl={4} key={item.attributes.titlu}>
+                <ServiciuEntryList data={item} />
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Box>
+          <ContactBox
+            sx={{
+              color: "rgba(0,0,0,0.95)",
+              py: 2,
+            }}
+          />
+        </Box>
       </Container>
 
       {/* // <PageHeader {...pageHeader} backgroundImage={headerImage} />
@@ -63,7 +98,10 @@ export async function getStaticProps() {
   //Run API calls in parallel
   const [main] = await Promise.all([getServiciiData()]);
   return {
-    props: { main, services: null },
+    props: {
+      main: main.serviciiPage?.data?.attributes,
+      services: main.serviciuEntries?.data ?? [],
+    },
     revalidate: 60,
   };
 }

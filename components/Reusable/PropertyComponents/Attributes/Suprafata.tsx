@@ -21,12 +21,14 @@ const Suprafata: React.FC<ISuprafata> = ({ sx, suprafata }) => {
           ...(sx as CSSProperties),
           display: "inline-flex",
           ...(propertyFont as CSSProperties),
+          fontSize: "inherit",
         }}
       >
         <AspectRatioOutlined
           sx={{
             ...propertyMargin,
           }}
+          fontSize="inherit"
         />
         {suprafata} MP
       </Box>

@@ -49,7 +49,13 @@ const LastArticlesSlider: React.FC<ILastArticlesSlider> = ({ latestItems }) => {
         {latestItems.map((item) => {
           return (
             <SwiperSlide key={item.id}>
-              <PropertyCard data={item} />
+              <Box
+                sx={{
+                  py: "15px",
+                }}
+              >
+                <PropertyCard data={item} />
+              </Box>
             </SwiperSlide>
           );
         })}
