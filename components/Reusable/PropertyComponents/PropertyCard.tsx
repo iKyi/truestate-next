@@ -93,6 +93,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
                   color: "secondary.light",
                 },
               }}
+              aria-label={`${titlu} url`}
             >
               {titlu}
             </MUILink>

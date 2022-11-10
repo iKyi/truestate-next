@@ -85,7 +85,8 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                       backgroundPosition: "center center",
                       backgroundRepeat: "no-repeat",
                     }}
-                  ></Box>
+                    aria-label="Link catre Acasa"
+                  />
                 )}
                 <Typography
                   sx={{

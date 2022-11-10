@@ -180,6 +180,7 @@ const Header: React.FC<HeaderPropsType> = ({ children, seo }) => {
             height: Mobile || isSticky ? 50 : 60,
             transition: "all .3s",
           }}
+          aria-label="Link catre Acasa"
         />
 
         <Stack spacing={2} direction="row" sx={{ marginLeft: "auto" }}>
