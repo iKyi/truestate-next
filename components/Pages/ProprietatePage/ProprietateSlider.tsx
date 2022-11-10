@@ -58,7 +58,7 @@ const ProprietateSlider: React.FC<IProprietateSlider> = ({ images }) => {
       <Swiper
         loop={true}
         spaceBetween={10}
-        navigation={true}
+        navigation={images.length > 1 ? true : false}
         thumbs={{
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
@@ -68,40 +68,12 @@ const ProprietateSlider: React.FC<IProprietateSlider> = ({ images }) => {
         {images.map((item, index) => {
           return (
             <SwiperSlide key={item}>
-            <Box
-              sx={{
-                height: "100%",
-                position: "relative",
-                width: "100%",
-                minHeight: "400px",
-              }}
-            >
-              <Image src={item} fill alt={index.toString()} />
-            </Box>
-            {/* <img src={item} alt={index.toString()} /> */}
-          </SwiperSlide>
-          );
-        })}
-      </Swiper>
-      <Swiper
-        onSwiper={setThumbsSwiper}
-        loop={true}
-        spaceBetween={10}
-        slidesPerView={4}
-        freeMode={true}
-        watchSlidesProgress={true}
-        modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
-      >
-        {images.map((item, index) => {
-          return (
-            <SwiperSlide key={item}>
               <Box
                 sx={{
                   height: "100%",
                   position: "relative",
                   width: "100%",
-                  minHeight: "100px",
+                  minHeight: "400px",
                 }}
               >
                 <Image src={item} fill alt={index.toString()} />
@@ -111,6 +83,36 @@ const ProprietateSlider: React.FC<IProprietateSlider> = ({ images }) => {
           );
         })}
       </Swiper>
+      {images.length > 1 && (
+        <Swiper
+          onSwiper={setThumbsSwiper}
+          loop={true}
+          spaceBetween={10}
+          slidesPerView={4}
+          freeMode={true}
+          watchSlidesProgress={true}
+          modules={[FreeMode, Navigation, Thumbs]}
+          className="mySwiper"
+        >
+          {images.map((item, index) => {
+            return (
+              <SwiperSlide key={item}>
+                <Box
+                  sx={{
+                    height: "100%",
+                    position: "relative",
+                    width: "100%",
+                    minHeight: "100px",
+                  }}
+                >
+                  <Image src={item} fill alt={index.toString()} />
+                </Box>
+                {/* <img src={item} alt={index.toString()} /> */}
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      )}
     </Box>
   );
 };
