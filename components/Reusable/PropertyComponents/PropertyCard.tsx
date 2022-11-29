@@ -152,9 +152,10 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
               fontWeight: 700,
               fontSize: "1.2rem",
               color: "inherit",
+              textTransform: "none",
             }}
           >
-            {formatCurrency(pret)}
+            {pret ? formatCurrency(pret) : "Vezi Detalii"}
           </Box>
           <KeyboardArrowRightOutlined fontSize="large" color="inherit" />
         </Box>

@@ -1,11 +1,12 @@
 import { Box, SxProps, Tooltip, Theme } from "@mui/material";
-import { CalendarMonthRounded } from "@mui/icons-material";
+
 import {
   centerFlex,
   propertyFont,
   propertyMargin,
 } from "../../../../utils/sxUtils";
 import { CSSProperties } from "react";
+import { ICON_COMPONENTS } from "../../../../constants/iconComponents";
 
 interface IAnConstructie {
   an?: number;
@@ -26,7 +27,7 @@ const AnConstructie: React.FC<IAnConstructie> = ({ an, sx }) => {
   return (
     <Tooltip title={`An constrctie ${an}`}>
       <Box sx={styles}>
-        <CalendarMonthRounded
+        <ICON_COMPONENTS.AN_CONSTRUCTIE
           sx={{
             ...propertyMargin,
           }}

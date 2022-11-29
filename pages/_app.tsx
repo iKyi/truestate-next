@@ -30,6 +30,7 @@ const getGlobalData = async () => {
                 name
                 slug
                 color
+                order
               }
             }
           }
@@ -52,6 +53,7 @@ const getGlobalData = async () => {
                   telefon
                   email
                 }
+                emailGlobal
                 logoWhite {
                   data {
                     attributes {
@@ -97,7 +99,7 @@ const getGlobalData = async () => {
         }
       `,
     });
-    return response.data;
+    return response?.data;
   } catch (err) {
     console.log(err);
   }
@@ -176,10 +178,10 @@ MyApp.getInitialProps = async (ctx: any) => {
   ]);
 
   const globalData = {
-    ...response.global?.data?.attributes,
+    ...response?.global?.data?.attributes,
     deOptions: response?.deOptions?.data?.map((item: any) => item.attributes),
-    categories: response.categories?.data?.map((item: any) => item.attributes),
-    tipuri: response.tips.data?.map((item: any) => item.attributes),
+    categories: response?.categories?.data?.map((item: any) => item.attributes),
+    tipuri: response?.tips?.data?.map((item: any) => item.attributes),
   };
   return {
     ...appProps,

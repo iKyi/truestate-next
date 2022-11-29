@@ -125,8 +125,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      pageData: response.data?.proprietatiPage.data?.attributes,
-      proprietati: response.data?.proprietates.data,
+      pageData: response?.data?.proprietatiPage.data?.attributes,
+      proprietati: response?.data?.proprietates.data,
     },
     revalidate: 60,
   };

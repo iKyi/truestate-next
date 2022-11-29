@@ -15,7 +15,8 @@ interface IContactBox {
   sx?: SxProps<Theme>;
 }
 const ContactBox: React.FC<IContactBox> = ({ sx }) => {
-  const { footerContactTitle, contactEntries } = useContext(GlobalContext);
+  const { footerContactTitle, contactEntries, emailGlobal } =
+    useContext(GlobalContext);
 
   return (
     <Box
@@ -43,21 +44,24 @@ const ContactBox: React.FC<IContactBox> = ({ sx }) => {
           gap: "10px",
         }}
       >
+        {emailGlobal && (
+          <IconButton
+            LinkComponent={MuiLinkDefault}
+            aria-label="phone link"
+            href={`mailto:${emailGlobal}`}
+            sx={{
+              color: "inherit",
+              display: "block",
+              mb: 0.3,
+            }}
+          >
+            <EmailOutlined />
+          </IconButton>
+        )}
         {contactEntries.map((item: any) => {
           const { nume, email, telefon, titlu } = item ?? {};
           return (
-            <Box key={nume}>
-              <Typography component="div">{nume}</Typography>
-              {titlu && (
-                <Typography
-                  component="div"
-                  sx={{
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  {titlu}
-                </Typography>
-              )}
+            <Box key={nume + titlu}>
               <Box
                 sx={{
                   gap: "5px",
@@ -76,20 +80,6 @@ const ContactBox: React.FC<IContactBox> = ({ sx }) => {
                     }}
                   >
                     <Phone />
-                  </IconButton>
-                )}
-                {email && (
-                  <IconButton
-                    LinkComponent={MuiLinkDefault}
-                    aria-label="phone link"
-                    href={`mailto:${email}`}
-                    sx={{
-                      color: "inherit",
-                      display: "block",
-                      mb: 0.3,
-                    }}
-                  >
-                    <EmailOutlined />
                   </IconButton>
                 )}
               </Box>

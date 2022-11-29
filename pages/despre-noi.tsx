@@ -59,8 +59,6 @@ interface IDesprenoi {
 const Desprenoi: NextPage<IDesprenoi> = ({ main }) => {
   const { boxes, pageHeader, seo } =
     main?.despreNoiPage?.data?.attributes ?? {};
-
-  console.log(boxes);
   return (
     <LayoutWrapper seo={seo}>
       <Container>
@@ -71,7 +69,7 @@ const Desprenoi: NextPage<IDesprenoi> = ({ main }) => {
           }}
         >
           <Grid container spacing={[2, 2, 4]}>
-            {boxes.map((item: any) => {
+            {boxes?.map((item: any) => {
               const { descriere, image, titlu, right } = item;
               const imageUrl = getStrapiMedia(image);
               return (

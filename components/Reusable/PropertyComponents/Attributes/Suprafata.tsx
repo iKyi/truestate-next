@@ -6,6 +6,7 @@ import {
   propertyMargin,
   propertyFont,
 } from "../../../../utils/sxUtils";
+import { ICON_COMPONENTS } from "../../../../constants/iconComponents";
 
 interface ISuprafata {
   suprafata?: number;
@@ -24,7 +25,7 @@ const Suprafata: React.FC<ISuprafata> = ({ sx, suprafata }) => {
           fontSize: "inherit",
         }}
       >
-        <AspectRatioOutlined
+        <ICON_COMPONENTS.SUPRAFATA
           sx={{
             ...propertyMargin,
           }}

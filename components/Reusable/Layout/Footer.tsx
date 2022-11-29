@@ -37,8 +37,10 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
     footerDisclamer,
     footerContactTitle,
     contactEntries,
+    emailGlobal,
   } = useContext(GlobalContext);
   const Mobile = useIsMobile();
+;
 
   // *************** RENDER *************** //
   return (
@@ -98,7 +100,7 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
               </Grid>
             )}
 
-            {contactEntries.length > 0 && (
+            {contactEntries?.length > 0 && (
               <Grid item xs={12} sm={6} md={4}>
                 <Box
                   sx={{
@@ -124,21 +126,24 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                       gap: "10px",
                     }}
                   >
+                    {emailGlobal && (
+                      <IconButton
+                        LinkComponent={MuiLinkDefault}
+                        aria-label="phone link"
+                        href={`mailto:${emailGlobal}`}
+                        sx={{
+                          color: "#fff",
+                          display: "block",
+                          mb: 0.3,
+                        }}
+                      >
+                        <EmailOutlined />
+                      </IconButton>
+                    )}
                     {contactEntries.map((item: any) => {
-                      const { nume, email, telefon, titlu } = item ?? {};
+                      const { nume, telefon, titlu } = item ?? {};
                       return (
-                        <Box key={nume}>
-                          <Typography component="div">{nume}</Typography>
-                          {titlu && (
-                            <Typography
-                              component="div"
-                              sx={{
-                                fontSize: "0.85rem",
-                              }}
-                            >
-                              {titlu}
-                            </Typography>
-                          )}
+                        <Box key={nume + titlu}>
                           <Box
                             sx={{
                               gap: "5px",
@@ -157,20 +162,6 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                                 }}
                               >
                                 <Phone />
-                              </IconButton>
-                            )}
-                            {email && (
-                              <IconButton
-                                LinkComponent={MuiLinkDefault}
-                                aria-label="phone link"
-                                href={`mailto:${email}`}
-                                sx={{
-                                  color: "#fff",
-                                  display: "block",
-                                  mb: 0.3,
-                                }}
-                              >
-                                <EmailOutlined />
                               </IconButton>
                             )}
                           </Box>

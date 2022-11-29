@@ -17,7 +17,7 @@ interface IProprietateSlider {
 const ProprietateSlider: React.FC<IProprietateSlider> = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
-  if (images.length === 0) return null;
+  if (!images || images.length === 0) return null;
   return (
     <Box
       component="section"

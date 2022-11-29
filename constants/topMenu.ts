@@ -18,6 +18,10 @@ const topMenu: IPageLink[] = [
     url: "/proprietati",
   },
   {
+    name: "Cauta",
+    url: "/cauta",
+  },
+  {
     name: "Servicii",
     url: "/servicii",
     servicesList: false,

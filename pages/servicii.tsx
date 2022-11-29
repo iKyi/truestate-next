@@ -99,8 +99,8 @@ export async function getStaticProps() {
   const [main] = await Promise.all([getServiciiData()]);
   return {
     props: {
-      main: main.serviciiPage?.data?.attributes,
-      services: main.serviciuEntries?.data ?? [],
+      main: main?.serviciiPage?.data?.attributes,
+      services: main?.serviciuEntries?.data ?? [],
     },
     revalidate: 60,
   };

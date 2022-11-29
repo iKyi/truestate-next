@@ -189,7 +189,11 @@ const Header: React.FC<HeaderPropsType> = ({ children, seo }) => {
           <Stack
             spacing={2}
             direction="row"
-            sx={{ marginLeft: "auto", display: ["none", "none", "flex"] }}
+            sx={{
+              marginLeft: "auto",
+              display: ["none", "none", "flex"],
+              pr: [0, 0, 3],
+            }}
           >
             {topMenu.map((item: any) => {
               const currentActive = pathname === item.url;

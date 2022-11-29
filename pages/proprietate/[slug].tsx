@@ -1,12 +1,25 @@
 import { gql } from "@apollo/client";
-import { Box, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Button,
+} from "@mui/material";
 import { Container } from "@mui/system";
 import { NextPage } from "next";
 import { useMemo } from "react";
 import ProprietateSlider from "../../components/Pages/ProprietatePage/ProprietateSlider";
 import LayoutWrapper from "../../components/Reusable/Layout/LayoutWrapper";
+import MarkdownParser from "../../components/Reusable/MarkdownParser";
+import { ICON_COMPONENTS } from "../../constants/iconComponents";
 import client from "../../lib/apolloClient";
+import formatCurrency from "../../utils/formatCurrency";
 import getPrimaryImage from "../../utils/getPrimaryImage";
+import Link from "next/link";
 
 const getItemData = async (slug: string) => {
   return client.query({
@@ -99,6 +112,9 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
     });
   }, [imagini]);
 
+  const categorieData = categorie?.data?.attributes ?? null;
+  const tipData = tip?.data?.attributes ?? null;
+
   return (
     <LayoutWrapper
       seo={{
@@ -112,18 +128,112 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
         }}
       >
         <Grid container spacing={[2, 2, 4]}>
-          <Grid item xs={12} lg={6}>
-            <Typography
-              variant="h1"
+          <Grid item xs={12}>
+            <Box
               sx={{
-                fontSize: [22, 22, 26],
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "10px",
               }}
             >
-              {titlu}
-            </Typography>
+              <Typography
+                variant="h1"
+                aria-label="Nume Articol"
+                sx={{
+                  fontSize: [18, 18, 24],
+                  mb: [2, 2, 3],
+                }}
+              >
+                {titlu}
+              </Typography>
+              {pret && (
+                <Box
+                  sx={{
+                    fontSize: ["1.2rem", "1.2rem", "1.8rem"],
+                    fontWeight: "700",
+                  }}
+                  aria-label="Pret Proprietate"
+                >
+                  {formatCurrency(pret)}
+                </Box>
+              )}
+            </Box>
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            {descriere && (
+              <Box>
+                <MarkdownParser>{descriere}</MarkdownParser>
+              </Box>
+            )}
+            <List>
+              {suprafata && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.SUPRAFATA />
+                  </ListItemIcon>
+                  <ListItemText>Suprafata: {suprafata} mp</ListItemText>
+                </ListItem>
+              )}
+              {etaj && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.ETAJ />
+                  </ListItemIcon>
+                  <ListItemText>Etaj: {etaj}</ListItemText>
+                </ListItem>
+              )}
+              {anConstructie && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>An Constructie: {anConstructie}</ListItemText>
+                </ListItem>
+              )}
+            </List>
           </Grid>
           <Grid item xs={12} lg={6}>
             <ProprietateSlider images={imagesArray} />
+          </Grid>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+              }}
+            >
+              {categorieData && (
+                <Button
+                  component={Link}
+                  href={`/categorie/${categorieData.slug}`}
+                  sx={{
+                    backgroundColor: `${categorieData.color}`,
+                    color: "#fff",
+                    "&:hover": {
+                      bgcolor: "primary.dark",
+                    },
+                  }}
+                >
+                  {categorieData.name}
+                </Button>
+              )}{" "}
+              {tipData && (
+                <Button
+                  component={Link}
+                  href={`/tip/${tipData.slug}`}
+                  sx={{
+                    backgroundColor: `primary.main`,
+                    color: "#fff",
+                    "&:hover": {
+                      bgcolor: "primary.dark",
+                    },
+                  }}
+                >
+                  {tipData.name}
+                </Button>
+              )}
+            </Box>
           </Grid>
         </Grid>
       </Container>

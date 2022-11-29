@@ -1,11 +1,12 @@
 import { Box, SxProps, Tooltip } from "@mui/material";
-import { StairsOutlined } from "@mui/icons-material";
+
 import {
   centerFlex,
   propertyMargin,
   propertyFont,
 } from "../../../../utils/sxUtils";
 import { CSSProperties } from "react";
+import { ICON_COMPONENTS } from "../../../../constants/iconComponents";
 
 interface IEtajParser {
   etaj?: number;
@@ -26,7 +27,7 @@ const EtajParser: React.FC<IEtajParser> = ({ etaj, sx }) => {
           fontSize: "inherit",
         }}
       >
-        <StairsOutlined
+        <ICON_COMPONENTS.ETAJ
           sx={{
             ...propertyMargin,
           }}

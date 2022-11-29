@@ -106,14 +106,14 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ homeData = {} }) => {
-  const { seo, proprietates, homepage } = homeData;
+  const { seo, proprietates, homepage } = homeData ?? {};
   const { heroImage } = homepage?.data?.attributes ?? {};
 
   return (
     <LayoutWrapper seo={seo} noSpacing>
       <HeroBox heroImage={heroImage} />
       <CategoriiBox />
-      <LastArticlesSlider latestItems={proprietates?.data} />
+      <LastArticlesSlider latestItems={proprietates?.data ?? []} />
     </LayoutWrapper>
   );
 };
@@ -125,7 +125,7 @@ export async function getStaticProps() {
   const [homeData] = await Promise.all([getHomepageData()]);
   return {
     props: {
-      homeData,
+      homeData: homeData ?? null,
     },
     revalidate: 60,
   };

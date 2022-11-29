@@ -19,26 +19,31 @@ const CategoriiBox: React.FC<ICategoriiBox> = () => {
           gap: "10px",
         }}
       >
-        {categories.map((item: Record<any, any>) => {
-          const { name, slug, color } = item;
-          return (
-            <Button
-              key={name}
-              component={Link}
-              href={`categorie/${slug}`}
-              sx={{
-                backgroundColor: color,
-                color: "#fff",
-                "&:hover": {
-                  color: "primary.dark",
-                  borderColor: "primary.dark",
-                },
-              }}
-            >
-              {name}
-            </Button>
-          );
-        })}
+        {categories
+          .sort((a: any, b: any) => (a.order > b.order ? 1 : -1))
+          .map((item: Record<any, any>) => {
+            const { name, slug, color } = item;
+            return (
+              <Button
+                key={name}
+                component={Link}
+                href={`categorie/${slug}`}
+                sx={{
+                  backgroundColor: color,
+                  color: "#fff",
+                  minWidth: "110px",
+                  borderRadius: "4px",
+                  "&:hover": {
+                    color: "#fff",
+                    borderColor: "primary.dark",
+                    bgcolor: "primary.main",
+                  },
+                }}
+              >
+                {name}
+              </Button>
+            );
+          })}
       </Box>
     </HomeSection>
   );

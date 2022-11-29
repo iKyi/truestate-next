@@ -12,14 +12,14 @@ const getItemData = async (slug: string) => {
   return client.query({
     query: gql`
       query getCategoryData($slug: String) {
-        categories(filters: { slug: { eq: $slug } }) {
+        tips(filters: { slug: { eq: $slug } }) {
           data {
             attributes {
               name
             }
           }
         }
-        proprietates(filters: { categorie: { slug: { eq: $slug } } }) {
+        proprietates(filters: { tip: { slug: { eq: $slug } } }) {
           data {
             attributes {
               titlu
@@ -81,23 +81,23 @@ const getItemData = async (slug: string) => {
   });
 };
 
-interface CategorieProps {
+interface TipProps {
   proprietati: Record<string, any>[];
-  categoryName: string;
+  tipName: string;
 }
 
-const Categorie: NextPage<CategorieProps> = ({ proprietati, categoryName }) => {
+const Tip: NextPage<TipProps> = ({ proprietati, tipName }) => {
   return (
     <LayoutWrapper
       seo={{
-        metaTitle: categoryName,
+        metaTitle: tipName,
       }}
       sx={{
         pb: 2,
       }}
     >
       <Container>
-        <PageHeader title={categoryName} />
+        <PageHeader title={tipName} />
         {proprietati.length === 0 ? <NuExistaRezultate /> : null}
 
         {proprietati.length && (
@@ -116,13 +116,13 @@ const Categorie: NextPage<CategorieProps> = ({ proprietati, categoryName }) => {
   );
 };
 
-export default Categorie;
+export default Tip;
 
 export async function getStaticPaths() {
   const resp = await client.query({
     query: gql`
       query getCategories {
-        categories {
+        tips {
           data {
             attributes {
               slug
@@ -133,10 +133,10 @@ export async function getStaticPaths() {
     `,
   });
 
-  const categories = resp?.data?.categories?.data ?? [];
+  const tips = resp?.data?.tips?.data ?? [];
 
   return {
-    paths: categories.map((category: any) => {
+    paths: tips.map((category: any) => {
       const { attributes } = category;
       const { slug } = attributes;
       return {
@@ -153,12 +153,12 @@ export async function getStaticProps({ params }: { params: any }) {
   const { slug } = params;
 
   const resp = await getItemData(slug);
-  const catName = resp.data.categories.data?.[0].attributes?.name ?? "";
+  const tipName = resp.data.tips.data?.[0].attributes?.name ?? "";
 
   return {
     props: {
       proprietati: resp?.data.proprietates?.data ?? [],
-      categoryName: catName,
+      tipName: tipName,
     },
     revalidate: 60,
   };
