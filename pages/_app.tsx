@@ -187,7 +187,6 @@ MyApp.getInitialProps = async (ctx: any) => {
     ...appProps,
     pageProps: {
       global: globalData,
-      // global, services, lastThreeArticles
     },
   };
 };
