@@ -70,6 +70,7 @@ const Servicii: NextPage<ServiciiProps> = ({ main, services }) => {
           sx={{
             mb: 4,
           }}
+          justifyContent={"center"}
         >
           {services.map((item) => {
             return (
