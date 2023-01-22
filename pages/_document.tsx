@@ -24,6 +24,7 @@ export default class MyDocument extends Document {
           />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
+          <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         </Head>
         <body>
           <Main />
