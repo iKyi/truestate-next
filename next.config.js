@@ -5,7 +5,6 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
-  staticPageGenerationTimeout: 120,
   headers: async () => {
     return [
       {
