@@ -21,6 +21,7 @@ const getServiciiData = async () => {
               titlu
               descriere
               slug
+              order
             }
           }
         }
@@ -60,6 +61,10 @@ type ServiciiProps = {
 const Servicii: NextPage<ServiciiProps> = ({ main, services }) => {
   const { seo, pageHeader, headerImage } = main;
 
+  const servicesSorted = [...services].sort((a: any, b: any) =>
+    a.attributes.order > b.attributes.order ? 1 : -1
+  );
+
   return (
     <LayoutWrapper seo={seo}>
       <Container>
@@ -72,9 +77,9 @@ const Servicii: NextPage<ServiciiProps> = ({ main, services }) => {
           }}
           justifyContent={"center"}
         >
-          {services.map((item) => {
+          {servicesSorted.map((item) => {
             return (
-              <Grid item xs={12} sm={6}  key={item.attributes.titlu}>
+              <Grid item xs={12} sm={6} key={item.attributes.titlu}>
                 <ServiciuEntryList data={item} />
               </Grid>
             );
