@@ -40,7 +40,6 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
     emailGlobal,
   } = useContext(GlobalContext);
   const Mobile = useIsMobile();
-;
 
   // *************** RENDER *************** //
   return (
@@ -194,29 +193,32 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
                 {socialLinks &&
                   Object.keys(socialLinks).map((key: string) => {
                     const url = socialLinks[key];
-                    return (
-                      <IconButton
-                        key={url}
-                        color="primary"
-                        component={MuiLinkDefault}
-                        href={url}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`${key} link button`}
-                        sx={{
-                          borderWidth: "1px",
-                          borderStyle: "solid",
-                          borderColor: "#fff",
-                          color: "#fff",
-                          "&:hover": {
-                            borderColor: "secondary.light",
-                            color: "secondary.light",
-                          },
-                        }}
-                      >
-                        <CommonIcon icon={key} />
-                      </IconButton>
-                    );
+                    if (url) {
+                      return (
+                        <IconButton
+                          key={url}
+                          color="primary"
+                          component={MuiLinkDefault}
+                          href={url}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`${key} link button`}
+                          sx={{
+                            borderWidth: "1px",
+                            borderStyle: "solid",
+                            borderColor: "#fff",
+                            color: "#fff",
+                            "&:hover": {
+                              borderColor: "secondary.light",
+                              color: "secondary.light",
+                            },
+                          }}
+                        >
+                          <CommonIcon icon={key} />
+                        </IconButton>
+                      );
+                    }
+                    return null;
                   })}
               </Stack>
             </Grid>

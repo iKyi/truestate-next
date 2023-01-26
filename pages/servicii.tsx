@@ -74,7 +74,7 @@ const Servicii: NextPage<ServiciiProps> = ({ main, services }) => {
         >
           {services.map((item) => {
             return (
-              <Grid item xs={12} sm={6} xl={4} key={item.attributes.titlu}>
+              <Grid item xs={12} sm={6}  key={item.attributes.titlu}>
                 <ServiciuEntryList data={item} />
               </Grid>
             );
