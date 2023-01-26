@@ -56,8 +56,8 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
     <Box
       sx={{
         bgcolor: "#fff",
-        minHeight: "60px",
-        width: "900px",
+        minHeight: "50px",
+        width: "960px",
         maxWidth: "100%",
         margin: "0 auto",
         borderRadius: "6px",
@@ -81,6 +81,7 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
             sx={{
               flexBasis: mobile ? undefined : "200px",
             }}
+            size="small"
           >
             <InputLabel id="label-for-type">Tip</InputLabel>
             <Select
@@ -107,6 +108,7 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
             sx={{
               flexBasis: mobile ? undefined : "200px",
             }}
+            size="small"
           >
             <InputLabel id="label-for-category">Categorie</InputLabel>
             <Select
@@ -128,6 +130,7 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
           </FormControl>
         )}
         <TextField
+          size="small"
           id="outlined-basic"
           label="Zona / Detalii"
           variant="outlined"
@@ -142,7 +145,7 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
           type="submit"
           endIcon={<SearchOutlined />}
           variant="contained"
-          color="secondary"
+          color="primary"
           sx={{
             flexBasis: mobile ? undefined : "120px",
             ml: "auto",
