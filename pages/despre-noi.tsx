@@ -80,7 +80,7 @@ const Desprenoi: NextPage<IDesprenoi> = ({ main }) => {
                         item
                         md={4}
                         sx={{
-                          order: right ? 3 : 1,
+                          order: right && imageUrl ? 3 : 1,
                         }}
                       >
                         <Box
@@ -98,16 +98,25 @@ const Desprenoi: NextPage<IDesprenoi> = ({ main }) => {
                     )}
                     <Grid
                       item
-                      md={8}
+                      md={imageUrl ? 8 : 12}
                       sx={{
                         ...centerFlex,
                         order: 2,
                       }}
                     >
                       <Stack>
-                        <Typography component="div">{titlu}</Typography>
+                        <Typography
+                          component="div"
+                          variant="h4"
+                          sx={{
+                            mb: 1.5,
+                            fontSize: "1.4rem",
+                          }}
+                        >
+                          {titlu}
+                        </Typography>
                         {descriere && (
-                          <Typography component="div">
+                          <Typography component="div" variant="body1">
                             <MarkdownParser>{descriere}</MarkdownParser>
                           </Typography>
                         )}
