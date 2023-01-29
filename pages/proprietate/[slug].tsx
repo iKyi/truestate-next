@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { NextPage } from "next";
-import { useMemo } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ProprietateSlider from "../../components/Pages/ProprietatePage/ProprietateSlider";
 import LayoutWrapper from "../../components/Reusable/Layout/LayoutWrapper";
 import MarkdownParser from "../../components/Reusable/MarkdownParser";
@@ -20,6 +21,9 @@ import client from "../../lib/apolloClient";
 import formatCurrency from "../../utils/formatCurrency";
 import getPrimaryImage from "../../utils/getPrimaryImage";
 import Link from "next/link";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { LatLngExpression, Map } from "leaflet";
+import AgentBox from "../../components/Reusable/PropertyComponents/AgentBox";
 
 const getItemData = async (slug: string) => {
   return client.query({
@@ -32,6 +36,21 @@ const getItemData = async (slug: string) => {
               descriere
               slug
               suprafata
+              vandut
+              agent {
+                data {
+                  attributes {
+                    nume
+                    telefon
+                    email
+                  }
+                }
+              }
+              camere
+              locatieHarta {
+                latitudine
+                longitudine
+              }
               tip {
                 data {
                   attributes {
@@ -103,8 +122,21 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
     etaj,
     anConstructie,
     pret,
+    locatieHarta,
+    camere,
+    agent,
+    vandut,
   } = data?.proprietates?.data?.[0]?.attributes ?? {};
   const primaryImage = getPrimaryImage(imagini);
+  const { latitudine, longitudine } = locatieHarta ?? {};
+
+  const Map = dynamic(
+    () => import("../../components/Reusable/ProprietatePageMap"), // replace '@components/map' with your component's location
+    {
+      loading: () => <p>A map is loading</p>,
+      ssr: false, // This line is important. It's what prevents server-side render
+    }
+  );
 
   const imagesArray = useMemo(() => {
     return imagini?.imagini?.data?.map((item: any) => {
@@ -114,6 +146,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
 
   const categorieData = categorie?.data?.attributes ?? null;
   const tipData = tip?.data?.attributes ?? null;
+  const agentData = agent?.data?.attributes;
 
   return (
     <LayoutWrapper
@@ -145,12 +178,19 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                 }}
               >
                 {titlu}
+                {vandut && (
+                  <Typography
+                    component="span"
+                    sx={{ fontSize: "inherit", color: "error.main" }}
+                  >{`(Vandut)`}</Typography>
+                )}
               </Typography>
               {pret && (
                 <Box
                   sx={{
                     fontSize: ["1.2rem", "1.2rem", "1.8rem"],
                     fontWeight: "700",
+                    textDecoration: vandut ? "line-through" : undefined,
                   }}
                   aria-label="Pret Proprietate"
                 >
@@ -166,6 +206,14 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               </Box>
             )}
             <List>
+              {camere && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.CAMERE />
+                  </ListItemIcon>
+                  <ListItemText>Camere: {camere}</ListItemText>
+                </ListItem>
+              )}
               {suprafata && (
                 <ListItem>
                   <ListItemIcon>
@@ -191,10 +239,17 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                 </ListItem>
               )}
             </List>
+            {agentData && <AgentBox agentData={agentData} />}
           </Grid>
           <Grid item xs={12} lg={6}>
-            <ProprietateSlider images={imagesArray} />
+            <ProprietateSlider images={imagesArray} vandut={vandut} />
           </Grid>
+          {latitudine && longitudine && (
+            <Grid item xs={12}>
+              <Map lat={latitudine} long={longitudine} />
+            </Grid>
+          )}
+
           <Grid item xs={12}>
             <Box
               sx={{
@@ -217,7 +272,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                 >
                   {categorieData.name}
                 </Button>
-              )}{" "}
+              )}
               {tipData && (
                 <Button
                   component={Link}
