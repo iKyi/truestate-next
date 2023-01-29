@@ -28,7 +28,13 @@ const NuExistaRezultate: React.FC<INuExistaRezultate> = () => {
           >
             Nu exista rezultate pentru cautarea ta.
           </Typography>
-          <Button component={Link} href="/">
+          <Button
+            component={Link}
+            href="/"
+            color="secondary"
+            variant="contained"
+            sx={{ mt: 2 }}
+          >
             Inapoi
           </Button>
         </Stack>

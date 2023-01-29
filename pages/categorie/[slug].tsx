@@ -99,8 +99,7 @@ const Categorie: NextPage<CategorieProps> = ({ proprietati, categoryName }) => {
       <Container>
         <PageHeader title={categoryName} />
         {proprietati.length === 0 ? <NuExistaRezultate /> : null}
-
-        {proprietati.length && (
+        {proprietati.length > 0 ? (
           <Grid container spacing={[2, 2, 4]} justifyContent="center">
             {proprietati.map((item) => {
               return (
@@ -110,7 +109,7 @@ const Categorie: NextPage<CategorieProps> = ({ proprietati, categoryName }) => {
               );
             })}
           </Grid>
-        )}
+        ) : null}
       </Container>
     </LayoutWrapper>
   );
