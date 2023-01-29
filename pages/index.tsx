@@ -46,6 +46,8 @@ const getHomepageData = async () => {
                 suprafata
                 etaj
                 anConstructie
+                vandut
+                camere
                 pret
                 tip {
                   data {

@@ -19,11 +19,19 @@ import AnConstructie from "./Attributes/AnConstructie";
 import CategorieBox from "./Attributes/CategorieBox";
 import EtajParser from "./Attributes/EtajParser";
 import Suprafata from "./Attributes/Suprafata";
+import { useContext } from "react";
+import { getStrapiMedia } from "../../../lib/media";
+import { GlobalContext } from "../../../pages/_app";
+import Image from "next/dist/client/image";
+import CamereBox from "./Attributes/CamereBox";
 
 interface IPropertyCard {
   data: Record<string, any>;
 }
 const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
+  const { vandutImage } = useContext(GlobalContext);
+  const vandutImageUrl = getStrapiMedia(vandutImage);
+
   const { attributes } = data;
   const {
     titlu,
@@ -37,6 +45,8 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
     etaj,
     anConstructie,
     pret,
+    vandut,
+    camere,
   } = attributes ?? {};
 
   const primaryImage = getPrimaryImage(imagini);
@@ -74,7 +84,23 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
           position: "relative",
         }}
         aria-label={`${titlu} image url`}
-      ></CardActionArea>
+      >
+        {vandut && vandutImageUrl && (
+          <Image
+            src={vandutImageUrl}
+            fill
+            alt="Proprietate vanduta"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              opacity: "0.5",
+            }}
+          />
+        )}
+      </CardActionArea>
       <Box
         sx={{
           p: [1, 1, 1.5],
@@ -90,6 +116,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
                 fontSize: "1.15rem",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                color: vandut ? "error.light" : undefined,
                 "&:hover": {
                   color: "secondary.light",
                 },
@@ -104,7 +131,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
                   lineHeight: "1.1",
                 }}
               >
-                <MarkdownParser>{descriere}</MarkdownParser>
+                <MarkdownParser trimContent={50}>{descriere}</MarkdownParser>
               </Box>
             )}
           </Box>
@@ -116,6 +143,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
               fontSize: "0.9rem",
             }}
           >
+            <CamereBox camere={camere} />
             <AnConstructie an={anConstructie} />
             <EtajParser etaj={etaj} />
             <Suprafata suprafata={suprafata} />

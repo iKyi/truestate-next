@@ -1,9 +1,4 @@
-import {
-  EmailOutlined,
-  Phone,
-  PhoneAndroidOutlined,
-  PhoneCallback,
-} from "@mui/icons-material";
+import { EmailOutlined, Phone, WhatsApp } from "@mui/icons-material";
 import {
   Box,
   CardActionArea,
@@ -26,6 +21,7 @@ import { getStrapiMedia } from "../../../lib/media";
 import { GlobalContext } from "../../../pages/_app";
 import { centerFlex } from "../../../utils/sxUtils";
 import CommonIcon from "../Icons/CommonIcon";
+import ContactBox from "../ContactBox";
 
 export type AppFooterPropsType = {
   children?: any;
@@ -38,6 +34,8 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
     footerContactTitle,
     contactEntries,
     emailGlobal,
+    officeEmail,
+    officePhone,
   } = useContext(GlobalContext);
   const Mobile = useIsMobile();
 
@@ -99,78 +97,9 @@ const AppFooter: React.FC<AppFooterPropsType> = ({ children }) => {
               </Grid>
             )}
 
-            {contactEntries?.length > 0 && (
-              <Grid item xs={12} sm={6} md={4}>
-                <Box
-                  sx={{
-                    color: "#fff",
-                    pt: 3,
-                    textAlign: "center",
-                  }}
-                >
-                  {footerContactTitle && (
-                    <Typography
-                      component="div"
-                      sx={{
-                        fontSize: "1.35rem",
-                        mb: 2,
-                      }}
-                    >
-                      {footerContactTitle}
-                    </Typography>
-                  )}
-                  <Box
-                    sx={{
-                      ...centerFlex,
-                      gap: "10px",
-                    }}
-                  >
-                    {emailGlobal && (
-                      <IconButton
-                        LinkComponent={MuiLinkDefault}
-                        aria-label="phone link"
-                        href={`mailto:${emailGlobal}`}
-                        sx={{
-                          color: "#fff",
-                          display: "block",
-                          mb: 0.3,
-                        }}
-                      >
-                        <EmailOutlined />
-                      </IconButton>
-                    )}
-                    {contactEntries.map((item: any) => {
-                      const { nume, telefon, titlu } = item ?? {};
-                      return (
-                        <Box key={nume + titlu}>
-                          <Box
-                            sx={{
-                              gap: "5px",
-                              ...centerFlex,
-                            }}
-                          >
-                            {telefon && (
-                              <IconButton
-                                LinkComponent={MuiLinkDefault}
-                                aria-label="phone link"
-                                href={`tel:+${telefon}`}
-                                sx={{
-                                  color: "#fff",
-                                  display: "block",
-                                  mb: 0.3,
-                                }}
-                              >
-                                <Phone />
-                              </IconButton>
-                            )}
-                          </Box>
-                        </Box>
-                      );
-                    })}
-                  </Box>
-                </Box>
-              </Grid>
-            )}
+            <Grid item xs={12} sm={6} md={4}>
+              <ContactBox white />
+            </Grid>
 
             <Grid
               item

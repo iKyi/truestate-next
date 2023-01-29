@@ -1,4 +1,4 @@
-import { EmailOutlined, Phone } from "@mui/icons-material";
+import { EmailOutlined, Phone, WhatsApp } from "@mui/icons-material";
 import {
   Box,
   IconButton,
@@ -13,10 +13,17 @@ import { centerFlex } from "../../utils/sxUtils";
 
 interface IContactBox {
   sx?: SxProps<Theme>;
+  white?: boolean;
 }
-const ContactBox: React.FC<IContactBox> = ({ sx }) => {
-  const { footerContactTitle, contactEntries, emailGlobal } =
+const ContactBox: React.FC<IContactBox> = ({ sx, white }) => {
+  const { footerContactTitle, emailGlobal, officeEmail, officePhone } =
     useContext(GlobalContext);
+
+  const boxStyles: SxProps<Theme> = {
+    display: "block",
+    mb: 0.3,
+    color: white ? "#fff" : undefined,
+  };
 
   return (
     <Box
@@ -44,21 +51,37 @@ const ContactBox: React.FC<IContactBox> = ({ sx }) => {
           gap: "10px",
         }}
       >
-        {emailGlobal && (
+        {officePhone && (
           <IconButton
             LinkComponent={MuiLinkDefault}
             aria-label="phone link"
-            href={`mailto:${emailGlobal}`}
-            sx={{
-              color: "inherit",
-              display: "block",
-              mb: 0.3,
-            }}
+            href={`https://wa.me/+40${officePhone}`}
+            sx={boxStyles}
+          >
+            <WhatsApp />
+          </IconButton>
+        )}
+        {officeEmail && (
+          <IconButton
+            LinkComponent={MuiLinkDefault}
+            aria-label="email link"
+            href={`mailto:${officeEmail}`}
+            sx={boxStyles}
           >
             <EmailOutlined />
           </IconButton>
         )}
-        {contactEntries.map((item: any) => {
+        {officePhone && (
+          <IconButton
+            LinkComponent={MuiLinkDefault}
+            aria-label="phone link"
+            href={`tel:+40${officePhone}`}
+            sx={boxStyles}
+          >
+            <Phone />
+          </IconButton>
+        )}
+        {/* {contactEntries.map((item: any) => {
           const { nume, email, telefon, titlu } = item ?? {};
           return (
             <Box key={nume + titlu}>
@@ -85,7 +108,7 @@ const ContactBox: React.FC<IContactBox> = ({ sx }) => {
               </Box>
             </Box>
           );
-        })}
+        })} */}
       </Box>
     </Box>
   );

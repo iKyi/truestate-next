@@ -6,16 +6,25 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import Image from "next/dist/client/image";
 import { centerFlex } from "../../../utils/sxUtils";
+import { GlobalContext } from "../../../pages/_app";
+import { getStrapiMedia } from "../../../lib/media";
 
 interface IProprietateSlider {
   images: string[];
+  vandut?: boolean;
 }
 
-const ProprietateSlider: React.FC<IProprietateSlider> = ({ images }) => {
+const ProprietateSlider: React.FC<IProprietateSlider> = ({
+  images,
+  vandut,
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+  const { vandutImage } = useContext(GlobalContext);
+
+  const vandutImageUrl = getStrapiMedia(vandutImage);
 
   if (!images || images.length === 0) return null;
   return (
@@ -77,8 +86,22 @@ const ProprietateSlider: React.FC<IProprietateSlider> = ({ images }) => {
                 }}
               >
                 <Image src={item} fill alt={index.toString()} />
+                {vandut && vandutImageUrl && (
+                  <Image
+                    src={vandutImageUrl}
+                    fill
+                    alt="Proprietate vanduta"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                      opacity: "0.5",
+                    }}
+                  />
+                )}
               </Box>
-              {/* <img src={item} alt={index.toString()} /> */}
             </SwiperSlide>
           );
         })}

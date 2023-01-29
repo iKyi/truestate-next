@@ -16,6 +16,15 @@ const getGlobalData = async () => {
     const response = await client.query({
       query: gql`
         query getGlobal {
+          agents {
+            data {
+              attributes {
+                nume
+                telefon
+                email
+              }
+            }
+          }
           tips {
             data {
               attributes {
@@ -46,6 +55,13 @@ const getGlobalData = async () => {
           global {
             data {
               attributes {
+                vandutImage {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
                 footerContactTitle
                 contactEntries {
                   nume
@@ -68,6 +84,8 @@ const getGlobalData = async () => {
                     }
                   }
                 }
+                officeEmail
+                officePhone
                 footerDisclamer
                 siteName
                 logo {
