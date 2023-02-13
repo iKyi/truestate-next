@@ -1,4 +1,4 @@
-nane: Build Next.js and start
+name: Build Next.js and start
 on: push
 jobs:
   build-project:
