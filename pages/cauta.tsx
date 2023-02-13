@@ -44,7 +44,12 @@ const getCautaPageData = async () => {
 
 const getQueryString = (data: ParsedUrlQuery) => {
   return gql`
-    query GetSerchResults($searchString: String, $tip: String, $de: String) {
+    query GetSerchResults(
+      $searchString: String
+      $tip: String
+      $de: String
+      $localCat: String
+    ) {
       proprietates(
         filters: {
           and: [
@@ -56,6 +61,7 @@ const getQueryString = (data: ParsedUrlQuery) => {
             }
             { tip: { slug: { eq: $tip } } }
             { de: { slug: { eq: $de } } }
+            { categorie: { slug: { eq: $localCat } } }
           ]
         }
       ) {
@@ -128,7 +134,7 @@ const Cauta: NextPage<ICauta> = ({ main }) => {
   const { query } = useRouter();
 
   useEffect(() => {
-    const { incl, cat, de } = query;
+    const { incl, cat, de, localCat } = query;
 
     setLoading(true);
     client
@@ -138,6 +144,7 @@ const Cauta: NextPage<ICauta> = ({ main }) => {
           searchString: incl,
           tip: cat,
           de: de,
+          localCat: localCat,
         },
       })
       .then((resp) => {
@@ -196,7 +203,6 @@ const Cauta: NextPage<ICauta> = ({ main }) => {
 export async function getStaticProps() {
   //Run API calls in parallel
   const [main] = await Promise.all([getCautaPageData()]);
-
 
   return {
     props: {

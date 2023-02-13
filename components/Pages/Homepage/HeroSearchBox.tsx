@@ -20,12 +20,14 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
   const mobile = useIsMobile();
 
   const [deValue, setDeValue] = useState<string>("");
-  const [categorieValue, setCategorieValue] = useState<string>("");
+  const [tipOmobiValue, setTipImobilValue] = useState<string>("");
   const [searchString, setSearchString] = useState<string>("");
+  const [categoryValue, setCategoryValue] = useState<string>("");
 
   const globalContext = useContext(GlobalContext) ?? {};
 
-  const { deOptions, tipuri } = globalContext ?? {};
+  const { deOptions, tipuri, categories } = globalContext ?? {};
+
 
   const handleThingChange = (item: string, value: any) => {
     switch (item) {
@@ -33,10 +35,13 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
         setDeValue(value);
         break;
       case "cat":
-        setCategorieValue(value);
+        setTipImobilValue(value);
         break;
       case "cuvant":
         setSearchString(value);
+        break;
+      case "localCat":
+        setCategoryValue(value);
         break;
       default:
         break;
@@ -47,8 +52,9 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
     e.preventDefault();
     let urlLink = "cauta?";
     urlLink += `${deValue.length > 0 ? "de=" + deValue : ""}`;
-    urlLink += `${categorieValue.length > 0 ? "&cat=" + categorieValue : ""}`;
+    urlLink += `${tipOmobiValue.length > 0 ? "&cat=" + tipOmobiValue : ""}`;
     urlLink += `${searchString.length > 0 ? "&incl=" + searchString : ""}`;
+    urlLink += `${categoryValue.length > 0 ? "&localCat=" + categoryValue : ""}`;
     push(urlLink);
   };
 
@@ -79,16 +85,16 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
         {deOptions && (
           <FormControl
             sx={{
-              flexBasis: mobile ? undefined : "200px",
+              flexBasis: mobile ? undefined : "160px",
             }}
             size="small"
           >
-            <InputLabel id="label-for-type">Tip</InputLabel>
+            <InputLabel id="label-for-type">Tip Tranzactie</InputLabel>
             <Select
               labelId="label-for-type"
               id="type-select"
               value={deValue}
-              label="Tip"
+              label="Tip Tranzactie"
               onChange={(e) => handleThingChange("de", e.target.value)}
             >
               <MenuItem value="">Toate</MenuItem>
@@ -106,6 +112,32 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
         {tipuri && (
           <FormControl
             sx={{
+              flexBasis: mobile ? undefined : "160px",
+            }}
+            size="small"
+          >
+            <InputLabel id="label-for-tipImobil">Tip Imobil</InputLabel>
+            <Select
+              labelId="label-for-tipImobil"
+              id="tipImobil-select"
+              value={tipOmobiValue}
+              label="Tip Imobil"
+              onChange={(e) => handleThingChange("cat", e.target.value)}
+            >
+              <MenuItem value="">Toate</MenuItem>
+              {tipuri?.map((item: any) => {
+                return (
+                  <MenuItem key={item.name} value={item.slug}>
+                    {item.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        )}
+        {categories && (
+          <FormControl
+            sx={{
               flexBasis: mobile ? undefined : "200px",
             }}
             size="small"
@@ -114,12 +146,12 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
             <Select
               labelId="label-for-category"
               id="category-select"
-              value={categorieValue}
+              value={categoryValue}
               label="Categorie"
-              onChange={(e) => handleThingChange("cat", e.target.value)}
+              onChange={(e) => handleThingChange("localCat", e.target.value)}
             >
               <MenuItem value="">Toate</MenuItem>
-              {tipuri?.map((item: any) => {
+              {categories?.map((item: any) => {
                 return (
                   <MenuItem key={item.name} value={item.slug}>
                     {item.name}
