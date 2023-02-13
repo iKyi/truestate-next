@@ -27,7 +27,7 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
   const globalContext = useContext(GlobalContext) ?? {};
 
   const { deOptions, tipuri, categories } = globalContext ?? {};
-
+  //test
 
   const handleThingChange = (item: string, value: any) => {
     switch (item) {
@@ -54,7 +54,9 @@ const HeroSearchBox: React.FC<IHeroSearchBox> = () => {
     urlLink += `${deValue.length > 0 ? "de=" + deValue : ""}`;
     urlLink += `${tipOmobiValue.length > 0 ? "&cat=" + tipOmobiValue : ""}`;
     urlLink += `${searchString.length > 0 ? "&incl=" + searchString : ""}`;
-    urlLink += `${categoryValue.length > 0 ? "&localCat=" + categoryValue : ""}`;
+    urlLink += `${
+      categoryValue.length > 0 ? "&localCat=" + categoryValue : ""
+    }`;
     push(urlLink);
   };
 
