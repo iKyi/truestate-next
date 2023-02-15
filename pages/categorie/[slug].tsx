@@ -144,8 +144,7 @@ export async function getStaticPaths() {
         },
       };
     }),
-    fallback: false,
-    revalidate: 60,
+    fallback: "blocking",
   };
 }
 
