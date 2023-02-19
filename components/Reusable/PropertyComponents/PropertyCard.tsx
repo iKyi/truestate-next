@@ -51,7 +51,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
 
   const primaryImage = getPrimaryImage(imagini);
 
-  const url = `/proprietate/${slug}`;
+  const url = `/proprietate/${slug ?? undefined}`;
 
   return (
     <Box

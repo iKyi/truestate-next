@@ -137,9 +137,6 @@ const Home: NextPage<HomeProps> = ({ homeData = {} }) => {
 };
 
 export async function getStaticProps() {
-  // Run API calls in parallel
-  // const [homepage, services, faqs, articles, featuresBoxData] =
-  //   await Promise.all([await fetchAPI("/homepage?populate=*")]);
   const [homeData] = await Promise.all([getHomepageData()]);
   return {
     props: {

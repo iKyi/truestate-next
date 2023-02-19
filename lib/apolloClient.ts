@@ -6,6 +6,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache({
     addTypename: false,
   }),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "network-only",
+    },
+  },
 });
 
 export default client;
