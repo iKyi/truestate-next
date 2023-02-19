@@ -138,6 +138,7 @@ const Home: NextPage<HomeProps> = ({ homeData = {} }) => {
 
 export async function getStaticProps() {
   const [homeData] = await Promise.all([getHomepageData()]);
+  console.log(homeData);
   return {
     props: {
       homeData: homeData ?? null,
