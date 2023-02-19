@@ -5,6 +5,15 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  async rewrites() {
+    return [
+      // Serve JSON files from _next/data directory
+      {
+        source: "/_next/data/:path*.json",
+        destination: "/_next/data/:path*.json",
+      },
+    ];
+  },
   headers: async () => {
     return [
       {
