@@ -78,7 +78,7 @@ const PropertyCard: React.FC<IPropertyCard> = ({ data }) => {
         className="imageBox"
         sx={{
           backgroundColor: "#000",
-          background: `url('${primaryImage}')`,
+          background: primaryImage ? `url('${primaryImage}')` : "none",
           backgroundRepeat: "no-repeat",
           height: 180,
           position: "relative",
