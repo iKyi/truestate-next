@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { Box } from "@mui/material";
 import type { NextPage } from "next";
 import CategoriiBox from "../components/Pages/Homepage/CategoriiBox";
+import EvaluareGratuitaBox from "../components/Pages/Homepage/EvaluareGratuitaBox";
 import HeroBox from "../components/Pages/Homepage/HeroBox";
 import LastArticlesSlider from "../components/Pages/Homepage/LastArticlesSlider";
 import LayoutWrapper from "../components/Reusable/Layout/LayoutWrapper";
@@ -15,6 +16,16 @@ const getHomepageData = async () => {
           homepage {
             data {
               attributes {
+                evaluareGratuitaImage {
+                  data {
+                    attributes {
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+                evaluareGratuitaText
                 heroImage {
                   data {
                     attributes {
@@ -109,12 +120,17 @@ type HomeProps = {
 
 const Home: NextPage<HomeProps> = ({ homeData = {} }) => {
   const { seo, proprietates, homepage } = homeData ?? {};
-  const { heroImage } = homepage?.data?.attributes ?? {};
+  const { heroImage, evaluareGratuitaText, evaluareGratuitaImage } =
+    homepage?.data?.attributes ?? {};
 
   return (
     <LayoutWrapper seo={seo} noSpacing>
       <HeroBox heroImage={heroImage} />
       <CategoriiBox />
+      <EvaluareGratuitaBox
+        text={evaluareGratuitaText}
+        image={evaluareGratuitaImage}
+      />
       <LastArticlesSlider latestItems={proprietates?.data ?? []} />
     </LayoutWrapper>
   );

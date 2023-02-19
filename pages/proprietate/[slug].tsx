@@ -24,6 +24,7 @@ import Link from "next/link";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { LatLngExpression, Map } from "leaflet";
 import AgentBox from "../../components/Reusable/PropertyComponents/AgentBox";
+import getBooleanValue from "../../utils/getBooleanValue";
 
 const getItemData = async (slug: string) => {
   return client.query({
@@ -46,6 +47,22 @@ const getItemData = async (slug: string) => {
                   }
                 }
               }
+              confort
+              impartire
+              vedere
+              complexRezidential
+              balcoane
+              terase
+              parcari
+              garaje
+              bucatarii
+              bai
+              cadastru
+              intabulare
+              riscSeismic
+              legeaUnuUnuDoi
+              ipoteca
+              clasaEnergetica
               camere
               locatieHarta {
                 latitudine
@@ -126,6 +143,22 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
     camere,
     agent,
     vandut,
+    confort,
+    impartire,
+    vedere,
+    complexRezidential,
+    balcoane,
+    terase,
+    parcari,
+    garaje,
+    bucatarii,
+    bai,
+    cadastru,
+    intabulare,
+    riscSeismic,
+    legeaUnuUnuDoi,
+    ipoteca,
+    clasaEnergetica,
   } = data?.proprietates?.data?.[0]?.attributes ?? {};
   const primaryImage = getPrimaryImage(imagini);
   const { latitudine, longitudine } = locatieHarta ?? {};
@@ -205,7 +238,14 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                 <MarkdownParser>{descriere}</MarkdownParser>
               </Box>
             )}
-            <List>
+            <List
+              disablePadding
+              sx={{
+                li: {
+                  py: "1px",
+                },
+              }}
+            >
               {camere && (
                 <ListItem>
                   <ListItemIcon>
@@ -236,6 +276,123 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                     <ICON_COMPONENTS.AN_CONSTRUCTIE />
                   </ListItemIcon>
                   <ListItemText>An Constructie: {anConstructie}</ListItemText>
+                </ListItem>
+              )}
+              {confort && confort > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Balcoane: {balcoane}</ListItemText>
+                </ListItem>
+              ) : null}
+              {balcoane && balcoane > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Balcoane: {balcoane}</ListItemText>
+                </ListItem>
+              ) : null}
+              {terase && terase > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Terase: {terase}</ListItemText>
+                </ListItem>
+              ) : null}
+              {parcari && parcari > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Parcari: {parcari}</ListItemText>
+                </ListItem>
+              ) : null}
+              {garaje && garaje > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Garaje: {garaje}</ListItemText>
+                </ListItem>
+              ) : null}
+              {bucatarii && bucatarii > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Bucatarii: {bucatarii}</ListItemText>
+                </ListItem>
+              ) : null}
+              {bai && bai > 0 ? (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                  </ListItemIcon>
+                  <ListItemText>Bai: {bai}</ListItemText>
+                </ListItem>
+              ) : null}
+
+              {complexRezidential !== undefined && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.COMPLEX />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Complex Rezidential: {getBooleanValue(complexRezidential)}
+                  </ListItemText>
+                </ListItem>
+              )}
+              {cadastru !== undefined && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.CADASTRU />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Cadastru: {getBooleanValue(cadastru)}
+                  </ListItemText>
+                </ListItem>
+              )}
+              {intabulare !== undefined && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.CADASTRU />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Intabulare: {getBooleanValue(intabulare)}
+                  </ListItemText>
+                </ListItem>
+              )}
+              {riscSeismic !== undefined && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.RISC />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Risc Seismic: {getBooleanValue(riscSeismic)}
+                  </ListItemText>
+                </ListItem>
+              )}
+              {legeaUnuUnuDoi !== undefined && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.UNUUNUDOI />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Legea 112: {getBooleanValue(legeaUnuUnuDoi)}
+                  </ListItemText>
+                </ListItem>
+              )}
+              {ipoteca !== undefined && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.IPOTECA />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Ipoteca: {getBooleanValue(ipoteca)}
+                  </ListItemText>
                 </ListItem>
               )}
             </List>
