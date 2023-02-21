@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { Box } from "@mui/material";
 import type { NextPage } from "next";
 import CategoriiBox from "../components/Pages/Homepage/CategoriiBox";
 import EvaluareGratuitaBox from "../components/Pages/Homepage/EvaluareGratuitaBox";
@@ -138,7 +137,6 @@ const Home: NextPage<HomeProps> = ({ homeData = {} }) => {
 
 export async function getStaticProps() {
   const [homeData] = await Promise.all([getHomepageData()]);
-  console.log(homeData);
   return {
     props: {
       homeData: homeData ?? null,

@@ -12,7 +12,7 @@ import {
 import { Container } from "@mui/system";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import ProprietateSlider from "../../components/Pages/ProprietatePage/ProprietateSlider";
 import LayoutWrapper from "../../components/Reusable/Layout/LayoutWrapper";
 import MarkdownParser from "../../components/Reusable/MarkdownParser";
@@ -21,10 +21,10 @@ import client from "../../lib/apolloClient";
 import formatCurrency from "../../utils/formatCurrency";
 import getPrimaryImage from "../../utils/getPrimaryImage";
 import Link from "next/link";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import { LatLngExpression, Map } from "leaflet";
 import AgentBox from "../../components/Reusable/PropertyComponents/AgentBox";
 import getBooleanValue from "../../utils/getBooleanValue";
+import VedereGetter from "../../utils/attributes/VedereGetter";
+import clasaEnergeticaGetter from "../../utils/attributes/clasaEnergeticaGetter";
 
 const getItemData = async (slug: string) => {
   return client.query({
@@ -110,6 +110,7 @@ const getItemData = async (slug: string) => {
                 }
               }
               etaj
+              etajeTotal
               anConstructie
               pret
             }
@@ -146,6 +147,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
     confort,
     impartire,
     vedere,
+    etajeTotal,
     complexRezidential,
     balcoane,
     terase,
@@ -270,6 +272,14 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                   <ListItemText>Etaj: {etaj}</ListItemText>
                 </ListItem>
               )}
+              {etajeTotal && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.ETAJ />
+                  </ListItemIcon>
+                  <ListItemText>Etaje total: {etajeTotal}</ListItemText>
+                </ListItem>
+              )}
               {anConstructie && (
                 <ListItem>
                   <ListItemIcon>
@@ -278,15 +288,8 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                   <ListItemText>An Constructie: {anConstructie}</ListItemText>
                 </ListItem>
               )}
+
               {confort && confort > 0 ? (
-                <ListItem>
-                  <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
-                  </ListItemIcon>
-                  <ListItemText>Balcoane: {balcoane}</ListItemText>
-                </ListItem>
-              ) : null}
-              {balcoane && balcoane > 0 ? (
                 <ListItem>
                   <ListItemIcon>
                     <ICON_COMPONENTS.AN_CONSTRUCTIE />
@@ -334,6 +337,35 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                   <ListItemText>Bai: {bai}</ListItemText>
                 </ListItem>
               ) : null}
+              {vedere && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.ORIENTARE />
+                  </ListItemIcon>
+                  <ListItemText>Orientare: {VedereGetter(vedere)}</ListItemText>
+                </ListItem>
+              )}
+              {impartire && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.IMPARTIRE />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Impartire:{" "}
+                    {impartire === "Open_space" ? "Open space" : impartire}
+                  </ListItemText>
+                </ListItem>
+              )}
+              {clasaEnergetica && (
+                <ListItem>
+                  <ListItemIcon>
+                    <ICON_COMPONENTS.CLASAENERG />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Clasa energetica: {clasaEnergeticaGetter(clasaEnergetica)}
+                  </ListItemText>
+                </ListItem>
+              )}
 
               {complexRezidential !== undefined && (
                 <ListItem>

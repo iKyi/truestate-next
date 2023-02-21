@@ -1,12 +1,9 @@
 import {
   KeyboardArrowRightOutlined,
-  VisibilityOutlined,
 } from "@mui/icons-material";
 import {
   Box,
-  Typography,
   Button,
-  IconButton,
   Link as MUILink,
   CardActionArea,
 } from "@mui/material";
