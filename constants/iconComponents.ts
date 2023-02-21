@@ -1,9 +1,13 @@
 import {
   AccountBalanceOutlined,
   AspectRatioOutlined,
+  BalconyOutlined,
+  BathtubOutlined,
   BusinessOutlined,
+  CarRepairOutlined,
   ChargingStationOutlined,
   DashboardOutlined,
+  LocalDiningOutlined,
   SplitscreenOutlined,
   StickyNote2Outlined,
   ViewCompactAltOutlined,
@@ -26,4 +30,8 @@ export const ICON_COMPONENTS = {
   ORIENTARE: VisibilityOutlined,
   IMPARTIRE: SplitscreenOutlined,
   CLASAENERG: ChargingStationOutlined,
+  BUCATARIE: LocalDiningOutlined,
+  BALCONY: BalconyOutlined,
+  GARAJ: CarRepairOutlined,
+  BAIE: BathtubOutlined,
 };

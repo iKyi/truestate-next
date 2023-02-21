@@ -243,6 +243,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
             <List
               disablePadding
               sx={{
+                my: [2, 2, 4],
                 li: {
                   py: "1px",
                 },
@@ -292,7 +293,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               {confort && confort > 0 ? (
                 <ListItem>
                   <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                    <ICON_COMPONENTS.BALCONY />
                   </ListItemIcon>
                   <ListItemText>Balcoane: {balcoane}</ListItemText>
                 </ListItem>
@@ -300,7 +301,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               {terase && terase > 0 ? (
                 <ListItem>
                   <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                    <ICON_COMPONENTS.BALCONY />
                   </ListItemIcon>
                   <ListItemText>Terase: {terase}</ListItemText>
                 </ListItem>
@@ -308,7 +309,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               {parcari && parcari > 0 ? (
                 <ListItem>
                   <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                    <ICON_COMPONENTS.GARAJ />
                   </ListItemIcon>
                   <ListItemText>Parcari: {parcari}</ListItemText>
                 </ListItem>
@@ -316,7 +317,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               {garaje && garaje > 0 ? (
                 <ListItem>
                   <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                    <ICON_COMPONENTS.GARAJ />
                   </ListItemIcon>
                   <ListItemText>Garaje: {garaje}</ListItemText>
                 </ListItem>
@@ -324,7 +325,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               {bucatarii && bucatarii > 0 ? (
                 <ListItem>
                   <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                    <ICON_COMPONENTS.BUCATARIE />
                   </ListItemIcon>
                   <ListItemText>Bucatarii: {bucatarii}</ListItemText>
                 </ListItem>
@@ -332,7 +333,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               {bai && bai > 0 ? (
                 <ListItem>
                   <ListItemIcon>
-                    <ICON_COMPONENTS.AN_CONSTRUCTIE />
+                    <ICON_COMPONENTS.BAIE />
                   </ListItemIcon>
                   <ListItemText>Bai: {bai}</ListItemText>
                 </ListItem>
