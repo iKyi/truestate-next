@@ -16,6 +16,8 @@
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.11.10",
+    "@mui/system": "^5.11.9",
     "@types/luxon": "^3.0.2",
     "@types/node": "18.11.9",
     "@types/react": "18.0.24",

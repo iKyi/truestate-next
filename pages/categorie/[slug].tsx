@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import { NextPage } from "next";
 import LayoutWrapper from "../../components/Reusable/Layout/LayoutWrapper";

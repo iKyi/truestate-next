@@ -25,6 +25,7 @@ import AgentBox from "../../components/Reusable/PropertyComponents/AgentBox";
 import getBooleanValue from "../../utils/getBooleanValue";
 import VedereGetter from "../../utils/attributes/VedereGetter";
 import clasaEnergeticaGetter from "../../utils/attributes/clasaEnergeticaGetter";
+import VilaBox from "../../components/Pages/ProprietatePage/VilaBox";
 
 const getItemData = async (slug: string) => {
   return client.query({
@@ -113,6 +114,44 @@ const getItemData = async (slug: string) => {
               etajeTotal
               anConstructie
               pret
+              vilaBox {
+                esteVila
+                geamuriTermopan
+                apa
+                garaj
+                pivnita
+                incalzireCentrala
+                renovatRecent
+                detectorGaze
+                termoIzolatie
+                curentElectric
+                gradina
+                acoperisTigla
+                gresie
+                faianta
+                planseeBeton
+                consolidata
+                wcServiciu
+                spatiuDepozitare
+                cabluTV
+                internet
+                internetFibraOptica
+                pod
+                parchet
+                gaz
+                canalizare
+                parcareInCurte
+                aerConditionat
+                sistemAlarma
+                sistemIrigatie
+                deschidere
+                suprafataUtila
+                suprafataTeren
+                suprafataConstruita
+                suprafataDesfasurata
+                amprentaLaSol
+                detectorIncendiu
+              }
             }
           }
         }
@@ -161,6 +200,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
     legeaUnuUnuDoi,
     ipoteca,
     clasaEnergetica,
+    vilaBox,
   } = data?.proprietates?.data?.[0]?.attributes ?? {};
   const primaryImage = getPrimaryImage(imagini);
   const { latitudine, longitudine } = locatieHarta ?? {};
@@ -429,11 +469,17 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                 </ListItem>
               )}
             </List>
+
             {agentData && <AgentBox agentData={agentData} />}
           </Grid>
           <Grid item xs={12} lg={6}>
             <ProprietateSlider images={imagesArray} vandut={vandut} />
           </Grid>
+          {vilaBox && vilaBox.esteVila ? (
+            <Grid item xs={12}>
+              <VilaBox vilaData={vilaBox} />
+            </Grid>
+          ) : null}
           {latitudine && longitudine && (
             <Grid item xs={12}>
               <Map lat={latitudine} long={longitudine} />
