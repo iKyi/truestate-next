@@ -26,6 +26,7 @@ import getBooleanValue from "../../utils/getBooleanValue";
 import VedereGetter from "../../utils/attributes/VedereGetter";
 import clasaEnergeticaGetter from "../../utils/attributes/clasaEnergeticaGetter";
 import VilaBox from "../../components/Pages/ProprietatePage/VilaBox";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const getItemData = async (slug: string) => {
   return client.query({
@@ -204,6 +205,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
   } = data?.proprietates?.data?.[0]?.attributes ?? {};
   const primaryImage = getPrimaryImage(imagini);
   const { latitudine, longitudine } = locatieHarta ?? {};
+  const isMobile = useIsMobile()
 
   const Map = dynamic(
     () => import("../../components/Reusable/ProprietatePageMap"), // replace '@components/map' with your component's location
@@ -236,7 +238,9 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
         }}
       >
         <Grid container spacing={[2, 2, 4]}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{
+            order: 1
+          }}>
             <Box
               sx={{
                 display: "flex",
@@ -266,6 +270,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                     fontSize: ["1.2rem", "1.2rem", "1.8rem"],
                     fontWeight: "700",
                     textDecoration: vandut ? "line-through" : undefined,
+                    whiteSpace: 'nowrap'
                   }}
                   aria-label="Pret Proprietate"
                 >
@@ -274,7 +279,11 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               )}
             </Box>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} lg={6}
+            sx={{
+              order: isMobile ? 3 : 2
+            }}
+          >
             {descriere && (
               <Box>
                 <MarkdownParser>{descriere}</MarkdownParser>
@@ -472,7 +481,9 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
 
             {agentData && <AgentBox agentData={agentData} />}
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} lg={6} sx={{
+            order: isMobile ? 2 : 3
+          }}>
             <ProprietateSlider images={imagesArray} vandut={vandut} />
           </Grid>
           {vilaBox && vilaBox.esteVila ? (
@@ -486,7 +497,9 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
             </Grid>
           )}
 
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{
+            order: 6
+          }}>
             <Box
               sx={{
                 display: "flex",

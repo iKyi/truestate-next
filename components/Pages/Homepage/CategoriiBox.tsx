@@ -3,10 +3,12 @@ import Link from "next/link";
 import { useContext } from "react";
 import { GlobalContext } from "../../../pages/_app";
 import HomeSection from "../../Reusable/HomeSection";
+import useIsMobile from "../../../hooks/useIsMobile";
 
-interface ICategoriiBox {}
+interface ICategoriiBox { }
 const CategoriiBox: React.FC<ICategoriiBox> = () => {
   const { categories } = useContext(GlobalContext);
+  const isMobile = useIsMobile()
 
   if (!categories) return null;
   return (
@@ -29,9 +31,10 @@ const CategoriiBox: React.FC<ICategoriiBox> = () => {
                 component={Link}
                 href={`categorie/${slug}`}
                 sx={{
+                  width: isMobile ? `calc(50% - 10px)` : undefined,
                   backgroundColor: color,
                   color: "#fff",
-                  minWidth: "110px",
+                  minWidth: !isMobile ? "110px" : '200px',
                   borderRadius: "4px",
                   "&:hover": {
                     color: "#fff",
@@ -45,7 +48,7 @@ const CategoriiBox: React.FC<ICategoriiBox> = () => {
             );
           })}
       </Box>
-    </HomeSection>
+    </HomeSection >
   );
 };
 

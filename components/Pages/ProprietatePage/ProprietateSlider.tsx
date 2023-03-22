@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button, IconButton, Link as MUILink } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 // Import Swiper styles
@@ -8,9 +8,9 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { CSSProperties, useContext, useState } from "react";
 import Image from "next/dist/client/image";
-import { centerFlex } from "../../../utils/sxUtils";
 import { GlobalContext } from "../../../pages/_app";
 import { getStrapiMedia } from "../../../lib/media";
+import { ZoomIn } from "@mui/icons-material";
 
 interface IProprietateSlider {
   images: string[];
@@ -98,9 +98,35 @@ const ProprietateSlider: React.FC<IProprietateSlider> = ({
                       bottom: 0,
                       right: 0,
                       opacity: "0.5",
+                      zIndex: 2,
                     }}
                   />
                 )}
+                <Box sx={{
+                  position: 'absolute',
+                  bottom: 10,
+                  right: 10,
+                  zIndex: 3,
+                }}>
+                  <IconButton
+                    component={MUILink}
+                    href={`${item}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    sx={{
+                      bgcolor: 'primary.main',
+                      color: '#fff',
+                      '&:active,&:hover': {
+                        bgcolor: 'primary.main',
+                      }
+                    }}
+
+                  >
+                    <ZoomIn color="inherit" />
+                  </IconButton>
+
+                </Box>
+
               </Box>
             </SwiperSlide>
           );

@@ -1,9 +1,13 @@
 const formatCurrency = (number?: number | null) => {
-  return new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: "EUR",
+  const formattedNumber = new Intl.NumberFormat("de-DE", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(number ?? 0);
 
-  // expected output: "123.456,79 €"
+  // Append the Euro symbol
+  const formattedWithoutDecimals = `${formattedNumber} €`;
+
+  // expected output: "123.456 €"
+  return formattedWithoutDecimals;
 };
 export default formatCurrency;
