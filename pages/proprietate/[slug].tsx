@@ -205,7 +205,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
   } = data?.proprietates?.data?.[0]?.attributes ?? {};
   const primaryImage = getPrimaryImage(imagini);
   const { latitudine, longitudine } = locatieHarta ?? {};
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   const Map = dynamic(
     () => import("../../components/Reusable/ProprietatePageMap"), // replace '@components/map' with your component's location
@@ -238,9 +238,13 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
         }}
       >
         <Grid container spacing={[2, 2, 4]}>
-          <Grid item xs={12} sx={{
-            order: 1
-          }}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              order: 1,
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -270,7 +274,7 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                     fontSize: ["1.2rem", "1.2rem", "1.8rem"],
                     fontWeight: "700",
                     textDecoration: vandut ? "line-through" : undefined,
-                    whiteSpace: 'nowrap'
+                    whiteSpace: "nowrap",
                   }}
                   aria-label="Pret Proprietate"
                 >
@@ -279,9 +283,12 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
               )}
             </Box>
           </Grid>
-          <Grid item xs={12} lg={6}
+          <Grid
+            item
+            xs={12}
+            lg={6}
             sx={{
-              order: isMobile ? 3 : 2
+              order: isMobile ? 3 : 2,
             }}
           >
             {descriere && (
@@ -306,22 +313,22 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
                   <ListItemText>Camere: {camere}</ListItemText>
                 </ListItem>
               )}
-              {suprafata && (
+              {suprafata && suprafata > 0 ? (
                 <ListItem>
                   <ListItemIcon>
                     <ICON_COMPONENTS.SUPRAFATA />
                   </ListItemIcon>
                   <ListItemText>Suprafata: {suprafata} mp</ListItemText>
                 </ListItem>
-              )}
-              {etaj && (
+              ) : null}
+              {etaj && etaj > 0 ? (
                 <ListItem>
                   <ListItemIcon>
                     <ICON_COMPONENTS.ETAJ />
                   </ListItemIcon>
                   <ListItemText>Etaj: {etaj}</ListItemText>
                 </ListItem>
-              )}
+              ) : null}
               {etajeTotal && (
                 <ListItem>
                   <ListItemIcon>
@@ -481,9 +488,14 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
 
             {agentData && <AgentBox agentData={agentData} />}
           </Grid>
-          <Grid item xs={12} lg={6} sx={{
-            order: isMobile ? 2 : 3
-          }}>
+          <Grid
+            item
+            xs={12}
+            lg={6}
+            sx={{
+              order: isMobile ? 2 : 3,
+            }}
+          >
             <ProprietateSlider images={imagesArray} vandut={vandut} />
           </Grid>
           {vilaBox && vilaBox.esteVila ? (
@@ -497,9 +509,13 @@ const Proprietate: NextPage<IProprietate> = ({ data }) => {
             </Grid>
           )}
 
-          <Grid item xs={12} sx={{
-            order: 6
-          }}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              order: 6,
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
